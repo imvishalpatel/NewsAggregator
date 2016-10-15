@@ -3,7 +3,7 @@ Sen final year project.
 
 ### Libraries
 
-****you need to download these libray and add it to the project.****
+***Download these libray and add it to the project.***
 
 * [jstl-1.2.jar](http://www.java2s.com/Code/JarDownload/jstl/jstl-1.2.jar.zip) - tag library
 * [java-mail-1.4.4.jar](http://www.java2s.com/Code/JarDownload/java-mail/java-mail-1.4.4.jar.zip) - for mailing purpose
