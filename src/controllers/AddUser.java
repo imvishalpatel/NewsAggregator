@@ -18,7 +18,7 @@ import java.util.LinkedList;
  */
 public class AddUser implements Action {
 
-    private String viewPage = "Login.jsp";
+    private String viewPage = "Signup.jsp";
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -41,8 +41,8 @@ public class AddUser implements Action {
 
             if (errors.size() > 0) {
                 request.setAttribute("error", errors);
-                viewPage = "Signup.jsp";
             } else {
+
                 User u = new User();
                 u.setUsername(username);
                 u.setPassword(password);
@@ -51,11 +51,18 @@ public class AddUser implements Action {
                 u.setLastName(lastName);
 
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
-
                 UserDAO userDao = new UserDAO(mongo);
-                userDao.creatUser(u);
-                System.out.println("User created successfully with id=" + u.getId());
-                request.setAttribute("success", "Congratulation "+ u.getFirstName() + "! Your registration is successful.");
+
+                if (!userDao.isExists(u)) {
+                    userDao.creatUser(u);
+                    System.out.println("User created successfully with id=" + u.getId()); // logs
+                    request.setAttribute("success", "Congratulation " + u.getFirstName() + "! Your registration is successful.");
+                    viewPage = "Login.jsp";
+                } else {
+                    System.out.println("User exists............."); // logs
+                    errors.add("User already there");
+                    request.setAttribute("error", errors);
+                }
             }
 
         } catch (Exception e) {
