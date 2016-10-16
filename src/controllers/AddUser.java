@@ -40,7 +40,7 @@ public class AddUser implements Action {
             }
 
             if (errors.size() > 0) {
-                request.setAttribute("error", errors);
+                request.setAttribute("signupErr", errors);
             } else {
 
                 User u = new User();
@@ -56,12 +56,12 @@ public class AddUser implements Action {
                 if (!userDao.isExists(u)) {
                     userDao.creatUser(u);
                     System.out.println("User created successfully with id=" + u.getId()); // logs
-                    request.setAttribute("success", "Congratulation " + u.getFirstName() + "! Your registration is successful.");
+                    request.setAttribute("signupSucc", "Congratulation " + u.getFirstName() + "! Your registration is successful.");
                     viewPage = "Login.jsp";
                 } else {
                     System.out.println("User exists............."); // logs
                     errors.add("User already there");
-                    request.setAttribute("error", errors);
+                    request.setAttribute("signupErr", errors);
                 }
             }
 
