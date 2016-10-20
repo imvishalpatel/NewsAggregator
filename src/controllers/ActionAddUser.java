@@ -7,10 +7,11 @@ package controllers;
 
 import com.mongodb.MongoClient;
 import dao.UserDAO;
+import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
-import java.util.LinkedList;
+import util.Mail;
 
 /**
  *
@@ -53,14 +54,22 @@ public class ActionAddUser implements Action {
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
                 UserDAO userDao = new UserDAO(mongo);
 
-                if (!userDao.isExists(u)) {
+                if (!userDao.isExists(u)) { // check if user exist or not 
                     userDao.creatUser(u);
                     System.out.println("User created successfully with id=" + u.getId()); // logs
-                    request.setAttribute("signupSucc", "Congratulation " + u.getFirstName() + "! Your registration is successful.");
+
+                    String content = "verify yourself and be a member of vidico community."
+                            + "confirmation key : http://localhost:8084/NewsAggregator/Controller?action=confirm&key=" + u.getId();
+                    content += "\nClick on the link or paste in browser.";
+
+                    boolean mailStatus = Mail.send(u.getEmail(), "confirmation code", content);
+
+                    String[] parameters = {u.getFirstName(), u.getEmail()};
+                    request.setAttribute("signupSucc", parameters);
                     viewPage = "Login.jsp";
                 } else {
                     System.out.println("User exists............."); // logs
-                    errors.add("User already there");
+                    errors.add("User exists, choose another username or email");
                     request.setAttribute("signupErr", errors);
                 }
             }

@@ -7,8 +7,8 @@ package service;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
-import model.User;
 import java.util.Date;
+import model.User;
 import org.bson.types.ObjectId;
 
 /**
@@ -16,7 +16,7 @@ import org.bson.types.ObjectId;
  * @author vishal
  */
 public class UserConverter {
-
+    
     public static DBObject toDBObject(User u) {
         BasicDBObjectBuilder builder = BasicDBObjectBuilder.start()
                 .append("username", u.getUsername())
@@ -31,14 +31,25 @@ public class UserConverter {
                 .append("registeredTime", new Date())
                 .append("reportedSpamCount", u.getReportedSpamCount())
                 .append("_id", u.getId());
-
+        
         return builder.get();
     }
-
+    
     public static User toUser(DBObject doc) {
         User u = new User();
+        u.setVerified((boolean) doc.get("verified"));
+        u.setIsAdmin((boolean) doc.get("isAdmin"));
+        
         u.setUsername((String) doc.get("username"));
         u.setPassword((String) doc.get("password"));
+        u.setFirstName((String) doc.get("firstname"));
+        u.setLastName((String) doc.get("lastname"));
+        u.setEmail((String) doc.get("email"));
+        
+        u.setLastAcessTime((Date) doc.get("lastAccessTime"));
+        u.setRating((int) doc.get("rating"));
+        u.setRegisterTime((Date) doc.get("registeredTime"));
+        u.setReportedSpamCount((int) doc.get("reportedSpamCount"));
         u.setId((ObjectId) doc.get("_id"));
         return u;
     }

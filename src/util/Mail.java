@@ -11,9 +11,9 @@ import javax.mail.internet.MimeMessage;
 
 public class Mail {
 
-    static private String username = "sunilom.04";
-    static private String fromID = "sunilom.04@gmail.com";
-    static private String password = "OM~SWEET~OM**";
+    static private String username = "vidico111@gmail.com";
+    static private String fromID = "vidico111@gmail.com";
+    static private String password = "111vidico"; // change email id and password accordingly
     static private String host = "smtp.gmail.com";
 
     static private Properties getProperties() {
@@ -79,6 +79,6 @@ public class Mail {
     }
 
     public static void main(String[] args) {
-        System.out.println(send(fromID, "Hello Sunil", "Hey! \r\n This is just a trial message!"));
+        System.out.println(send("vishal.6794@gmail.com", "Hello Sunil", "Hey! \r\n This is just a trial message!"));
     }
 }
