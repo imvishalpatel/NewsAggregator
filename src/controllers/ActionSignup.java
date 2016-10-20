@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vishal
  */
-public class Signup implements Action{
+public class ActionSignup implements Action{
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

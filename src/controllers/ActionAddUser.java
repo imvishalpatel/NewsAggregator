@@ -16,7 +16,7 @@ import java.util.LinkedList;
  *
  * @author vishal
  */
-public class AddUser implements Action {
+public class ActionAddUser implements Action {
 
     private String viewPage = "Signup.jsp";
 
