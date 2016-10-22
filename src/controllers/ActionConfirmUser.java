@@ -7,7 +7,7 @@ package controllers;
 
 import com.mongodb.MongoClient;
 import dao.UserDAO;
-import java.util.Date;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
@@ -40,14 +40,18 @@ public class ActionConfirmUser implements Action {
                 System.out.println("LOGGING --> verify set to TRUE for " + u.getEmail() + "" + u.getId() + "" + u.getFirstName());
                 request.setAttribute("confirmSucc", u.getUsername());
             } else {
+                request.setAttribute("confirmAlready", "you are already verified");
                 System.out.println("LOGGING --> you are already verified " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
             }
+
+            userDao.updateUser(u);
         } else {
+            ArrayList<String> error = new ArrayList<>();
+            error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");
+
+            request.setAttribute("signupErr", error);
             return "Signup.jsp"; // if user is not in database means not registered yet
         }
-
-        u.setLastAcessTime(new Date());
-        userDao.updateUser(u);
 
         return "Login.jsp";
     }

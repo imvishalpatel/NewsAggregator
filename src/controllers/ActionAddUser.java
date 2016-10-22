@@ -7,6 +7,7 @@ package controllers;
 
 import com.mongodb.MongoClient;
 import dao.UserDAO;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,13 @@ public class ActionAddUser implements Action {
                 u.setEmail(email);
                 u.setFirstName(firstName);
                 u.setLastName(lastName);
-
+                u.setIsAdmin(false);
+                u.setLastAcessTime(new Date());
+                u.setRegisterTime(new Date());
+                u.setRating(0);
+                u.setReportedSpamCount(0);
+                u.setVerified(false);
+                
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
                 UserDAO userDao = new UserDAO(mongo);
 
@@ -58,11 +65,11 @@ public class ActionAddUser implements Action {
                     userDao.creatUser(u);
                     System.out.println("User created successfully with id=" + u.getId()); // logs
 
-                    String content = "verify yourself and be a member of vidico community."
+                    String mailContent = "verify yourself and be a member of vidico community."
                             + "confirmation key : http://localhost:8084/NewsAggregator/Controller?action=confirm&key=" + u.getId();
-                    content += "\nClick on the link or paste in browser.";
+                    mailContent += "\nClick on the link or paste in browser.";
 
-                    boolean mailStatus = Mail.send(u.getEmail(), "confirmation code", content);
+                    boolean mailStatus = Mail.send(u.getEmail(), "confirmation code", mailContent);
 
                     String[] parameters = {u.getFirstName(), u.getEmail()};
                     request.setAttribute("signupSucc", parameters);

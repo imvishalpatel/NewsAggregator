@@ -27,6 +27,14 @@
                 You are now member of vidico.
             </p>
         </c:if>
-        <h1>Login Page</h1>
+        <c:if test="${requestScope.confirmAlready ne null}">
+
+            <p>You are already verified!</p>
+            <p style="color:blue; font-weight: bold">
+                Login in vidico and enjoy the discussion.
+            </p>
+        </c:if>
+            
+        <h1></h1>
     </body>
 </html>

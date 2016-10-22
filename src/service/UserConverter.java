@@ -25,10 +25,10 @@ public class UserConverter {
                 .append("lastname", u.getLastName())
                 .append("email", u.getEmail())
                 .append("isAdmin", u.isIsAdmin())
-                .append("lastAccessTime", new Date())
-                .append("rating", 0)
+                .append("lastAccessTime", u.getLastAcessTime())
+                .append("rating", u.getRating())
                 .append("verified", u.isVerified())
-                .append("registeredTime", new Date())
+                .append("registeredTime", u.getRegisterTime())
                 .append("reportedSpamCount", u.getReportedSpamCount())
                 .append("_id", u.getId());
         

@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import java.util.Date;
 import model.User;
 import org.bson.types.ObjectId;
 import service.UserConverter;
@@ -35,6 +36,7 @@ public class UserDAO {
     }
 
     public void updateUser(User u) {
+        u.setLastAcessTime(new Date());
         DBObject newDocument = UserConverter.toDBObject(u);
         BasicDBObject searchQuery = new BasicDBObject().append("_id", u.getId());
         col.findAndModify(searchQuery, newDocument);
