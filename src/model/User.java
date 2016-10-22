@@ -21,7 +21,6 @@ public class User {
     private String lastName;
     private String email;
 
-    private boolean isAdmin;
     private boolean verified;
 
     private Date registerTime;
@@ -30,7 +29,13 @@ public class User {
     private int rating;
     private int reportedSpamCount;
 
-    
+    private char type;
+    private String imgSource;
+
+    private String[] publicPost;
+    private String[] privatePost;
+    private Notification notification;
+
     public ObjectId getId() {
         return id;
     }
@@ -79,14 +84,6 @@ public class User {
         this.email = email;
     }
 
-    public boolean isIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     public boolean isVerified() {
         return verified;
     }
@@ -127,9 +124,49 @@ public class User {
         this.reportedSpamCount = reportedSpamCount;
     }
 
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
+        this.type = type;
+    }
+
+    public String getImgSource() {
+        return imgSource;
+    }
+
+    public void setImgSource(String imgSource) {
+        this.imgSource = imgSource;
+    }
+
+    public String[] getPublicPost() {
+        return publicPost;
+    }
+
+    public void setPublicPost(String[] publicPost) {
+        this.publicPost = publicPost;
+    }
+
+    public String[] getPrivatePost() {
+        return privatePost;
+    }
+
+    public void setPrivatePost(String[] privatePost) {
+        this.privatePost = privatePost;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isAdmin=" + isAdmin + ", verified=" + verified + ", registerTime=" + registerTime + ", lastAcessTime=" + lastAcessTime + ", rating=" + rating + ", reportedSpamCount=" + reportedSpamCount + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", verified=" + verified + ", registerTime=" + registerTime + ", lastAcessTime=" + lastAcessTime + ", rating=" + rating + ", reportedSpamCount=" + reportedSpamCount + ", type=" + type + ", imgSource=" + imgSource + ", publicPost=" + publicPost + ", privatePost=" + privatePost + ", notification=" + notification + '}';
     }
 
 }

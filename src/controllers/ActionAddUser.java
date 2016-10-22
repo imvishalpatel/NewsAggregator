@@ -48,15 +48,17 @@ public class ActionAddUser implements Action {
                 User u = new User();
                 u.setUsername(username);
                 u.setPassword(password);
-                u.setEmail(email);
-                u.setFirstName(firstName);
+                u.setEmail(email);                          // public post, private post and notification need 
+                u.setFirstName(firstName);                  // to be done
                 u.setLastName(lastName);
-                u.setIsAdmin(false);
+                u.setType('u');
                 u.setLastAcessTime(new Date());
                 u.setRegisterTime(new Date());
                 u.setRating(0);
                 u.setReportedSpamCount(0);
                 u.setVerified(false);
+                u.setImgSource("");
+             
                 
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
                 UserDAO userDao = new UserDAO(mongo);
