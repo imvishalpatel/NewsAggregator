@@ -4,6 +4,8 @@
     Author     : vishal
 --%>
 
+<%@page import="model.PublicDiscussionModel"%>
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,5 +38,33 @@
         </c:if>
             
         <h1></h1>
+        
+        <table>
+            
+        <%
+            try{
+             PublicDiscussionModel pb=new PublicDiscussionModel(); 
+            
+            ArrayList<PublicDiscussionModel> arpb = (ArrayList<PublicDiscussionModel>)request.getAttribute("arpb");
+           for(int i=0;i<arpb.size();i++)    
+            {
+                
+                
+                 pb=arpb.get(i);
+                 out.println("<tr>");
+                 out.println("<td>User id:"+ pb.getUsertId()+"</td>");
+                out.println("<td>Topic:"+ pb.getTopic()+"</td>");
+                 out.println("<td>Content:"+ pb.getContent()+"</td>");
+                  out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
+                 
+                 out.println("</tr>");
+                 
+            }   
+            }
+            catch (Exception e) {
+            out.println(e.getMessage());
+        }
+        %>
+        </table>
     </body>
 </html>

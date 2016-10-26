@@ -75,7 +75,7 @@ public class ActionAddUser implements Action {
 
                     String[] parameters = {u.getFirstName(), u.getEmail()};
                     request.setAttribute("signupSucc", parameters);
-                    viewPage = "Login.jsp";
+                    viewPage = "TestPage.jsp";
                 } else {
                     System.out.println("User exists............."); // logs
                     errors.add("User exists, choose another username or email");

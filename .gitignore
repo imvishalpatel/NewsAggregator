@@ -3,3 +3,4 @@ nbproject/
 build.xml
 .settings/
 dist/
+WebContent/WEB-INF/glassfish-web.xml
