@@ -18,7 +18,7 @@ import model.User;
  */
 public class ActionConfirmUser implements Action {
 
-    private String viewPage = "Login.jsp";
+    private String viewPage = "TestPage.jsp";
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -27,7 +27,8 @@ public class ActionConfirmUser implements Action {
         System.out.println("LOGGING --> " + key);
         // TODO
         if (key == null || key.equals("")) {
-            return "Error.jsp";
+            viewPage = "Error.jsp";
+            return viewPage;
         }
 
         MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
@@ -53,7 +54,7 @@ public class ActionConfirmUser implements Action {
             return "Signup.jsp"; // if user is not in database means not registered yet
         }
 
-        return "Login.jsp";
+        return viewPage;
     }
 
 }
