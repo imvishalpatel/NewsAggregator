@@ -7,7 +7,7 @@ package service;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
-import model.PublicDiscussionModel;
+import model.PublicDiscussion;
 import java.util.Date;
 import org.bson.types.ObjectId;
 
@@ -16,7 +16,7 @@ import org.bson.types.ObjectId;
  * @author BHAVESH GOYAL
  */
 public class PublicPostConverter {
-        public static DBObject toDBObject(PublicDiscussionModel pb) {
+        public static DBObject toDBObject(PublicDiscussion pb) {
         BasicDBObjectBuilder builder = BasicDBObjectBuilder.start()
                 .append("userId", pb.getUsertId())
                 .append("topic", pb.getTopic())
@@ -34,8 +34,8 @@ public class PublicPostConverter {
         return builder.get();
     }
         
- public static PublicDiscussionModel fromDBObject(DBObject dbo) {
-     PublicDiscussionModel pb=new PublicDiscussionModel();
+ public static PublicDiscussion fromDBObject(DBObject dbo) {
+     PublicDiscussion pb=new PublicDiscussion();
       pb.setUserId(dbo.get("userId").toString());
         pb.setTopic(dbo.get("topic").toString());
         pb.setContent(dbo.get("content").toString());

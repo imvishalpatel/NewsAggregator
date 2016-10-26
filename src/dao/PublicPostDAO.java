@@ -11,7 +11,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import java.util.ArrayList;
-import model.PublicDiscussionModel;
+import model.PublicDiscussion;
 import org.bson.types.ObjectId;
 import service.PublicPostConverter;
 
@@ -26,16 +26,16 @@ public class PublicPostDAO {
         this.col = mongo.getDB("vidico").getCollection("publicpost");
     }
 
-    public PublicDiscussionModel newPost(PublicDiscussionModel pb) {
+    public PublicDiscussion newPost(PublicDiscussion pb) {
         DBObject doc = PublicPostConverter.toDBObject(pb);
         this.col.insert(doc);
         pb.setPostId((ObjectId) doc.get("_id"));
         return pb;
     }
     
-    public ArrayList<PublicDiscussionModel> showPost()
+    public ArrayList<PublicDiscussion> showPost()
     { 
-        ArrayList<PublicDiscussionModel> arpb=new ArrayList<PublicDiscussionModel>();
+        ArrayList<PublicDiscussion> arpb=new ArrayList<PublicDiscussion>();
              
         try{
         BasicDBObject whereQuery = new BasicDBObject();
@@ -44,7 +44,7 @@ public class PublicPostDAO {
     DBCursor cursor = this.col.find();
     while(cursor.hasNext()) {
         oneDetails=cursor.next();
-        PublicDiscussionModel pb=new PublicDiscussionModel();
+        PublicDiscussion pb=new PublicDiscussion();
      pb=PublicPostConverter.fromDBObject(oneDetails);
        
         arpb.add(pb);
@@ -59,7 +59,7 @@ public class PublicPostDAO {
         }
         
     return arpb;    }
-     public  void updatePost(ArrayList<PublicDiscussionModel> arpb)
+     public  void updatePost(ArrayList<PublicDiscussion> arpb)
     { 
              
         try{
@@ -67,7 +67,7 @@ public class PublicPostDAO {
         
     DBCursor cursor = this.col.find();
     while(cursor.hasNext()) {
-             PublicDiscussionModel pb=new PublicDiscussionModel();
+             PublicDiscussion pb=new PublicDiscussion();
              DBObject doc = PublicPostConverter.toDBObject(pb);
             BasicDBObject whereQuery = new BasicDBObject();
     whereQuery.put("userId",pb.getUsertId());

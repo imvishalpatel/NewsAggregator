@@ -11,7 +11,7 @@ import dao.PublicPostDAO;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.PublicDiscussionModel;
+import model.PublicDiscussion;
 import java.util.LinkedList;
 /**
  *
@@ -38,7 +38,7 @@ public class ActionPublicPost implements Action {
                 request.setAttribute("error", errors);
                 viewPage = "PublicPost.jsp";
             } else {
-                PublicDiscussionModel pb = new PublicDiscussionModel();
+                PublicDiscussion pb = new PublicDiscussion();
                pb.setPost(userId, topic, content);
 
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
@@ -46,7 +46,7 @@ public class ActionPublicPost implements Action {
                 PublicPostDAO publicPostDao = new PublicPostDAO(mongo);
                 publicPostDao.newPost(pb);
               //  System.out.println("Publicpost action id=" + pb.getPostId());
-                  ArrayList<PublicDiscussionModel> arpb = new ArrayList<PublicDiscussionModel>();
+                  ArrayList<PublicDiscussion> arpb = new ArrayList<PublicDiscussion>();
                 arpb=publicPostDao.showPost();
                 request.setAttribute("arpb",arpb);
             

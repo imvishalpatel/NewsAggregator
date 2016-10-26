@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.bson.types.ObjectId;
 
-public class PublicDiscussionModel extends Discussion{
+public class PublicDiscussion extends Discussion{
 	
 	
 	  private ArrayList<String> viewedBy=new ArrayList<String>();
