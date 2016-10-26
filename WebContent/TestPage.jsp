@@ -4,7 +4,7 @@
     Author     : vishal
 --%>
 
-<%@page import="model.PublicDiscussionModel"%>
+<%@page import="model.PublicDiscussion"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -43,9 +43,9 @@
             
         <%
             try{
-             PublicDiscussionModel pb=new PublicDiscussionModel(); 
+             PublicDiscussion pb=new PublicDiscussion(); 
             
-            ArrayList<PublicDiscussionModel> arpb = (ArrayList<PublicDiscussionModel>)request.getAttribute("arpb");
+            ArrayList<PublicDiscussion> arpb = (ArrayList<PublicDiscussion>)request.getAttribute("arpb");
            for(int i=0;i<arpb.size();i++)    
             {
                 
