@@ -23,7 +23,7 @@ public class ActionPublicPost implements Action {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-        String userId = request.getParameter("userid");
+        String userId ="bgoyal2222";
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         LinkedList<String> errors = new LinkedList<>();
