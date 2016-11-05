@@ -50,6 +50,24 @@ public class UserDAO {
         // TODO
     }
 
+    public User searchUserByUsernameOrEmail(User u) {
+        BasicDBObject username = new BasicDBObject("username", u.getUsername());
+        BasicDBObject email = new BasicDBObject("email", u.getEmail());
+
+        BasicDBList or = new BasicDBList();
+        or.add(username);
+        or.add(email);
+        DBObject query = new BasicDBObject("$or", or);
+        
+        DBObject obj = col.findOne(query);
+        if(obj==null){
+            return null;
+        }
+        
+        User foundUser = UserConverter.toUser(obj);
+        return foundUser;
+    }
+
     public boolean isExists(User u) {
         BasicDBList or = new BasicDBList();
 

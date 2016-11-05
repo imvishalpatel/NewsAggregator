@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class Controller extends HttpServlet {
         String actionName = "test";
 
         if (theAction != null) {
-            System.out.print("I cam here also..");
+            System.out.println("[LOGGIN] theAction :" + theAction);
             actionName = theAction.toString();
         }
 
@@ -34,7 +33,7 @@ public class Controller extends HttpServlet {
 
         String view = action.process(request, response);
 
-        System.out.print("I cam here..");
+        System.out.println("[LOGGIN] view : "+view);
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }
