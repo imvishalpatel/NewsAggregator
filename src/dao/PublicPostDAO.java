@@ -48,14 +48,14 @@ public class PublicPostDAO {
      pb=PublicPostConverter.fromDBObject(oneDetails);
        
         arpb.add(pb);
-//        System.out.println(pb.getUsertId());
+        System.out.println(pb.getUsertId());
 //        System.out.println(pb.getTopic());
 //        System.out.println(pb.getContent());
 //        System.out.println(pb.getTagsString());
     }
     
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()+"dao");
         }
         
     return arpb;    }

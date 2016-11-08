@@ -26,6 +26,15 @@ public class ActionPublicPost implements Action {
         String userId ="bgoyal2222";
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
+        String[] checkBox = request.getParameterValues("cb");
+        String category=""; 
+        if(checkBox != null){
+        for(int i=0; i<checkBox.length; i++){
+            category=category+checkBox[i]+",";
+        }
+        category=category.substring(0, category.length()-1);
+        
+        }
         LinkedList<String> errors = new LinkedList<>();
         try {
             if (topic== null || topic.equals("")) {
@@ -39,7 +48,7 @@ public class ActionPublicPost implements Action {
                 viewPage = "PublicPost.jsp";
             } else {
                 PublicDiscussion pb = new PublicDiscussion();
-               pb.setPost(userId, topic, content);
+               pb.setPost(userId, topic, content,category);
 
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
 
@@ -56,7 +65,7 @@ public class ActionPublicPost implements Action {
              
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()+"Action");
         }
 
         return viewPage;

@@ -25,7 +25,7 @@ public class PublicPostConverter {
                 .append("viewedBy", null)
                 .append("comment", null)
                 .append("voter", null)
-                .append("category",null)
+                .append("category",pb.getCategoryString())
                 .append("spam", false)
                 .append("open", true)
                 .append("reportedSpamHistory", null)
@@ -36,12 +36,19 @@ public class PublicPostConverter {
         
  public static PublicDiscussion fromDBObject(DBObject dbo) {
      PublicDiscussion pb=new PublicDiscussion();
+     try{
       pb.setUserId(dbo.get("userId").toString());
         pb.setTopic(dbo.get("topic").toString());
         pb.setContent(dbo.get("content").toString());
         pb.setTags(dbo.get("tags").toString());
-        return pb;
-    }
+        //pb.setCategory(dbo.get("category").toString());
+        System.out.println(pb.getUsertId());
+        
+     }catch (Exception e) {
+            System.out.println(e.getMessage()+"converter");
+        }
+ return pb;
+ }
 
     
 }

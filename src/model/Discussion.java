@@ -47,20 +47,6 @@ public class Discussion {
                     tags.add(str[i]);
                 }
         }
-	public void setPost(String userId,String topic,String content)
-	{
-	
-        this.userId=userId;
-        this.topic=topic;
-        String[] str=content.split("#");
-        this.content=str[0];
-        	for(int i=1;i<str.length;i++)
-                {
-                    tags.add(str[i]);
-                }
-                if(tags.size()<=0)
-                    tags.add(" ");
-	}
 	public ObjectId getPostId()
 	{
 	return this.postId;

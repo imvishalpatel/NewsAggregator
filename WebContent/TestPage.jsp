@@ -56,13 +56,14 @@
                 out.println("<td>Topic:"+ pb.getTopic()+"</td>");
                  out.println("<td>Content:"+ pb.getContent()+"</td>");
                   out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
+                //out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
                  
                  out.println("</tr>");
                  
             }   
             }
             catch (Exception e) {
-            out.println(e.getMessage());
+            out.println(e.getMessage()+"test page");
         }
         %>
         </table>

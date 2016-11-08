@@ -42,7 +42,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="News Aggregator"></a>
+				<a class="navbar-brand" href="#"><img src="http://localhost:8080/NewsAggregator/assets/images/logo.png" alt="News Aggregator"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
@@ -112,12 +112,12 @@
 							<input type="text" id="topic" name="topic" placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
 							<h3>Post : </h3>
 							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
-							<h3>Select Catagory : </h3>
-							<input type="checkbox" name="cb1" value="Political"> Political <br/>
-							<input type="checkbox" name="cb2" value="Education"> Education  <br/>
-							<input type="checkbox" name="cb3" value="Sports"> Sports  <br/>
-							<input type="checkbox" name="cb4" value="Music"> Music <br/>
-							<input type="checkbox" name="cb5" value="History"> History <br/>
+							<h3>Select Category : </h3>
+							<input type="checkbox" name="cb" value="Political"> Political <br/>
+							<input type="checkbox" name="cb" value="Education"> Education  <br/>
+							<input type="checkbox" name="cb" value="Sports"> Sports  <br/>
+							<input type="checkbox" name="cb" value="Music"> Music <br/>
+							<input type="checkbox" name="cb" value="History"> History <br/>
 						
 						<div style="margin-top: 50px; margin-left: -13px;">
                                                     <button type="submit" class="btn btn-action">Post</button>
