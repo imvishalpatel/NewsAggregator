@@ -56,7 +56,7 @@
                 out.println("<td>Topic:"+ pb.getTopic()+"</td>");
                  out.println("<td>Content:"+ pb.getContent()+"</td>");
                   out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
-                //out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
+                out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
                  
                  out.println("</tr>");
                  

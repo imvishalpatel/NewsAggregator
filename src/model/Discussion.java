@@ -40,12 +40,16 @@ public class Discussion {
         
         public void setTags(String tagString)
         {
-            String[] str=tagString.split(",");
+           if(tagString!=null)
+            {String[] str=tagString.split(",");
         
         	for(int i=0;i<str.length;i++)
                 {
                     tags.add(str[i]);
                 }
+            }
+           else 
+               tags=null;
         }
 	public ObjectId getPostId()
 	{
@@ -76,6 +80,7 @@ public class Discussion {
         {
            str=str+tags.get(i)+",";
         }
+        if(!str.equals(""))
         str=str.substring(0, str.length()-1);
         return str;
 	}

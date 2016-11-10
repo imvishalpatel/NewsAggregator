@@ -28,6 +28,7 @@ public Boolean isSpam()
                 {
                     str1=str1 + str[i]+",";
                 }
+                if(!str1.equals(""))
                 str1=str1.substring(0,str1.length()-1);
                 super.setTags(str1);
                 
@@ -44,17 +45,26 @@ public Boolean isSpam()
         {
            str=str+category.get(i)+",";
         }
+        if(!str.equals(""))
         str=str.substring(0, str.length()-1);
+      
         return str;
+        
 	}
                public void setCategory(String tagString)
         {
+            if(tagString!=null)
+            {
             String[] str=tagString.split(",");
         
         	for(int i=0;i<str.length;i++)
                 {
                     category.add(str[i]);
-                }
+                
+               }
+            }
+            else 
+        category=null;
         }
 
         

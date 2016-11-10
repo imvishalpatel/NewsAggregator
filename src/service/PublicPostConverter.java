@@ -40,8 +40,10 @@ public class PublicPostConverter {
       pb.setUserId(dbo.get("userId").toString());
         pb.setTopic(dbo.get("topic").toString());
         pb.setContent(dbo.get("content").toString());
+        if(dbo.get("tags")!=null)
         pb.setTags(dbo.get("tags").toString());
-        //pb.setCategory(dbo.get("category").toString());
+        if(dbo.get("category")!=null)
+        pb.setCategory(dbo.get("category").toString());
         System.out.println(pb.getUsertId());
         
      }catch (Exception e) {

@@ -32,6 +32,7 @@ public class ActionPublicPost implements Action {
         for(int i=0; i<checkBox.length; i++){
             category=category+checkBox[i]+",";
         }
+        if(!category.equals(""))
         category=category.substring(0, category.length()-1);
         
         }
