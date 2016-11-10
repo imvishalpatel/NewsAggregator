@@ -31,29 +31,33 @@ public class ActionConfirmUser implements Action {
             return viewPage;
         }
 
-        MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
-        UserDAO userDao = new UserDAO(mongo);
-        User u = userDao.searchByObjectId(key);
+        try {
+            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+            UserDAO userDao = new UserDAO(mongo);
 
-        if (u != null) {
-            if (u.isVerified() == false) {
-                u.setVerified(true);
-                System.out.println("LOGGING --> verify set to TRUE for " + u.getEmail() + "" + u.getId() + "" + u.getFirstName());
-                request.setAttribute("confirmSucc", u.getUsername());
+            User u = userDao.searchByObjectId(key);
+
+            if (u != null) {
+                if (u.isVerified() == false) {
+                    u.setVerified(true);
+                    System.out.println("LOGGING --> verify set to TRUE for " + u.getEmail() + "" + u.getId() + "" + u.getFirstName());
+                    request.setAttribute("confirmSucc", u.getUsername());
+                } else {
+                    request.setAttribute("confirmAlready", "you are already verified");
+                    System.out.println("LOGGING --> you are already verified " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
+                }
+
+                userDao.updateUser(u);
             } else {
-                request.setAttribute("confirmAlready", "you are already verified");
-                System.out.println("LOGGING --> you are already verified " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
+                ArrayList<String> error = new ArrayList<>();
+                error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");
+
+                request.setAttribute("signupErr", error);
+                return "Signup.jsp"; // if user is not in database means not registered yet
             }
-
-            userDao.updateUser(u);
-        } else {
-            ArrayList<String> error = new ArrayList<>();
-            error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");
-
-            request.setAttribute("signupErr", error);
-            return "Signup.jsp"; // if user is not in database means not registered yet
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
         return viewPage;
     }
 

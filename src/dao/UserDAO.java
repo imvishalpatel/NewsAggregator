@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import java.text.ParseException;
 import java.util.Date;
 import model.User;
 import org.bson.types.ObjectId;
@@ -46,11 +47,30 @@ public class UserDAO {
         // TODO
     }
 
-    public void searchUser(User u) {
+    public User searchUser(String username) throws Exception {
         // TODO
+
+        User user = null;
+
+        System.out.println("Searching...");
+        DBCursor cursor = col.find();
+
+        while (cursor.hasNext()) {
+
+            DBObject doc = cursor.next();
+            
+            User tempUser = UserConverter.toUser(doc);
+
+            if (tempUser.getUsername().equals(username)) {
+                user = tempUser;
+                break;
+            }
+        }
+
+        return user;
     }
 
-    public User searchUserByUsernameOrEmail(User u) {
+    public User searchUserByUsernameOrEmail(User u) throws Exception {
         BasicDBObject username = new BasicDBObject("username", u.getUsername());
         BasicDBObject email = new BasicDBObject("email", u.getEmail());
 
@@ -58,12 +78,12 @@ public class UserDAO {
         or.add(username);
         or.add(email);
         DBObject query = new BasicDBObject("$or", or);
-        
+
         DBObject obj = col.findOne(query);
-        if(obj==null){
+        if (obj == null) {
             return null;
         }
-        
+
         User foundUser = UserConverter.toUser(obj);
         return foundUser;
     }
@@ -87,7 +107,7 @@ public class UserDAO {
         return false;
     }
 
-    public User searchByObjectId(String id) {
+    public User searchByObjectId(String id) throws Exception {
         DBObject obj = col.findOne(new ObjectId(id));
         User u = null;
         System.out.println("LOGGING --> [obj] " + obj);

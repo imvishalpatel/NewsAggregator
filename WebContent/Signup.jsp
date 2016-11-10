@@ -154,7 +154,7 @@
                                 <hr>
                             </c:if>
                             <form action="Controller" method="post">
-                                <input type="hidden" name="action" value="loginauth" />
+                                <input type="hidden" name="action" value="login" />
                                 <div class="top-margin">
                                     <label>Username/Email <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="username" value="${requestScope.username}">
