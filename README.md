@@ -1,6 +1,14 @@
 # NewsAggregator
 Sen final year project.
 
+### How to use sequence
+            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+            SequenceDAO seqDao = new SequenceDAO(mongo);
+            
+            // get sequence for COMMENT starting from 1
+            long n = seqDao.getNextSequenceId("COMMENT");
+            System.out.println(n);
+            
 ### Libraries
 
 ***Download these libraries and add it to project.***
