@@ -93,7 +93,7 @@
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
 						<li><a href="my_discussion_list.html" class="current btn-theme btn-small">My Discussion</a></li>
-						<li><a href="discussion_list.html" class="btn-theme btn-small">Discussion List</a></li>
+						<li><a href="Controller?action=publicdetailview" class="btn-theme btn-small">Discussion List</a></li>
 						<li><a href="#" class="btn-theme btn-small">Most Viewed Post</a></li>
 						<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
 					</ul>
@@ -107,7 +107,7 @@
 				<div class="tab-content">
 					<div id="new_post" class="tab-pane fade in active">
 					  <div class="col-md-12">
-					  	<form action="Controller?action=publicpost" method="post" style="margin-top: 2px;">
+					  	<form action="Controller?action=addpublicpost" method="post" style="margin-top: 2px;">
 							<h3>Topic : </h3>
 							<input type="text" id="topic" name="topic" placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
 							<h3>Post : </h3>
