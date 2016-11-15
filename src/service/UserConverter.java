@@ -10,9 +10,6 @@ import com.mongodb.DBObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.internet.ParseException;
 import model.User;
 import org.bson.types.ObjectId;
 
@@ -44,7 +41,7 @@ public class UserConverter {
         return builder.get();
     }
 
-    public static User toUser(DBObject doc) throws Exception {
+    public static User toUsers(DBObject doc) throws Exception {
         System.out.println("converting for" + doc.get("firstname"));
         User u = new User();
         u.setVerified(Boolean.parseBoolean(doc.get("verified").toString()));

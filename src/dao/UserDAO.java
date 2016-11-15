@@ -11,8 +11,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import model.User;
 import org.bson.types.ObjectId;
 import service.UserConverter;
@@ -58,8 +58,8 @@ public class UserDAO {
         while (cursor.hasNext()) {
 
             DBObject doc = cursor.next();
-            
-            User tempUser = UserConverter.toUser(doc);
+
+            User tempUser = UserConverter.toUsers(doc);
 
             if (tempUser.getUsername().equals(username)) {
                 user = tempUser;
@@ -84,7 +84,7 @@ public class UserDAO {
             return null;
         }
 
-        User foundUser = UserConverter.toUser(obj);
+        User foundUser = UserConverter.toUsers(obj);
         return foundUser;
     }
 
@@ -117,8 +117,29 @@ public class UserDAO {
 
         System.out.println("LOGGING --> " + obj.get("firstname"));
         System.out.println("LOGGING --> " + obj.get("verified"));
-        u = UserConverter.toUser(obj);
+        u = UserConverter.toUsers(obj);
 
         return u;
+    }
+
+    public HashMap<String, User> getUserList() throws Exception {
+
+        HashMap<String, User> userList = null;
+
+        DBCursor cursor = col.find();
+
+        if (cursor.hasNext()) {
+            userList = new HashMap<String, User>();
+        }
+
+        while (cursor.hasNext()) {
+
+            DBObject doc = cursor.next();
+            User user = UserConverter.toUsers(doc);
+            System.out.println("From DAO Loop:" + user);
+            userList.put(user.getUsername(), user);
+        }
+
+        return userList;
     }
 }
