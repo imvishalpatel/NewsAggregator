@@ -17,7 +17,7 @@ import model.PublicDiscussion;
  * @author BHAVESH GOYAL
  */
 public class ActionAddPublicPost implements Action{
-          private String viewPage = "TestPage.jsp";
+          private String viewPage = "PublicPost.jsp";
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

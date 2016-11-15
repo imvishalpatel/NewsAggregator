@@ -11,9 +11,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import java.util.ArrayList;
+import model.Comments;
 import model.PublicDiscussion;
 import org.bson.types.ObjectId;
 import service.PublicPostConverter;
+import util.sequence.model.SequenceId;
 
 /**
  *
@@ -83,5 +85,11 @@ public class PublicPostDAO {
         }
         
       }
+     
+//     public void addcomment(String id,Comments newComment)
+//     {
+//         
+     
+//     }
 
 }

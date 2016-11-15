@@ -6,17 +6,36 @@
 package model;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bson.types.ObjectId;
 /**
  *
  * @author BHAVESH GOYAL
  */
 public class Comments {
     
-    private ObjectId id;
+    private String id;
    private String commentLine;
+   private String userId;
     private ArrayList<HashMap<String,Integer>> voter=new ArrayList<HashMap<String,Integer>>();
    
+      public void setUserId(String userId)
+        {
+            this.userId=userId;
+        }
+    void setCommentId(String id)
+    {
+        this.id=id;
+        
+    
+    }  
+    public String getUsertId()
+	{
+	return this.userId;
+	}
+    String getCommentId()
+    {
+        return this.id;
+        
+    }
     void setComment(String comment){
         this.commentLine=comment;
     }
