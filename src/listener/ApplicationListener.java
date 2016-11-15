@@ -2,12 +2,12 @@ package listener;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
+import javax.servlet.annotation.WebListener;
 import model.User;
 
+@WebListener
 public class ApplicationListener implements ServletContextListener{
 
 	@Override
