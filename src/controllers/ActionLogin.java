@@ -1,66 +1,76 @@
 package controllers;
 
+import com.mongodb.MongoClient;
+import dao.UserDAO;
 import java.util.HashMap;
-
-import javax.jws.soap.SOAPBinding.Use;
+import java.util.LinkedList;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.User;
-
-import com.mongodb.MongoClient;
-
-import dao.UserDAO;
-import java.util.Map;
 
 public class ActionLogin implements Action {
 
     @Override
     public String process(HttpServletRequest request,
             HttpServletResponse response) {
-
-        String view = "error.jsp";
+        LinkedList<String> errors = new LinkedList<>();
+        String view = "Signup.jsp";
         try {
 
-            String username = request.getAttribute("username").toString();
-            String password = request.getAttribute("password").toString();
+            String username = (String) request.getAttribute("username");
+            String password = (String) request.getAttribute("password");
+            if (username == null || username.equals("")) {
+                errors.add("Username can not be blank");
+            }
+            if (password == null || password.equals("")) {
+                errors.add("Password can not be blank");
+            }
 
-            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
-            UserDAO dao = new UserDAO(mongo);
+            if (errors.size() > 0) {
+                request.setAttribute("loginErr", errors);
+            } else {
+                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+                UserDAO dao = new UserDAO(mongo);
 
-            User user;
-            user = dao.searchUser(username);
+                User user = dao.searchUser(username);
 
-            String message = "";
+                String message;
 
-            if (user.getUsername().equals(username.trim())) {
-                if (user.getPassword().trim().equals(password.trim())) {
-                    if (user.isVerified()) {
-                        message = "Login Sucessful";
+                if (user.getUsername().equals(username.trim())) {
+                    if (user.getPassword().trim().equals(password.trim())) {
+                        if (user.isVerified()) {
+                            message = "Login Sucessful for user=" + user.getUsername();
+                            System.out.println(message);
 
-                        //Add this user object to active list
-                        Map<String, User> activeUsers = (Map<String, User>) request.getServletContext().getAttribute("activeUSers");
-                        if(activeUsers==null)
-                            activeUsers = new HashMap<>();
-                        activeUsers.put(username, user);
+                            //Add this user object to active list
+                            Map<String, User> activeUsers = (Map<String, User>) request.getServletContext().getAttribute("activeUSers");
+                            if (activeUsers == null) {
+                                activeUsers = new HashMap<>();
+                            }
+                            activeUsers.put(username, user);
 
-                        //Set session
-                        request.getSession().setAttribute("username", username);
-                        request.getSession().setAttribute("userType", user.getType());
+                            //Set session
+                            request.getSession().setAttribute("username", username);
+                            request.getSession().setAttribute("userType", user.getType());
+                            return "PublicPost.jsp";
+                        } else {
+                            errors.add("You have not verified your email id yet.");
+                            request.setAttribute("loginErr", errors);
+                        }
                     } else {
-                        message = "You have not verified your email id yet.";
+                        errors.add("The password you entered is incorrect");
+                        request.setAttribute("loginErr", errors);
                     }
                 } else {
-                    message = "The password you entered is incorrect";
+                    errors.add("The username you entered is incorrect");
+                    request.setAttribute("loginErr", errors);
                 }
-            } else {
-                message = "The username you entered is incorrect";
+
             }
-            System.out.println(message);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return view;
     }
 }

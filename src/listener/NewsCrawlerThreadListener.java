@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -27,8 +28,12 @@ public class NewsCrawlerThreadListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         if ((scheduler == null) || (!scheduler.isTerminated())) {
-            scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleAtFixedRate(new NewsCrawler(sce), 0, threadPoolTime, TimeUnit.MINUTES);
+            ServletContext ctx = sce.getServletContext();
+            String newsThreadValue = ctx.getInitParameter("NewsThread");
+            if (newsThreadValue.equalsIgnoreCase("TRUE")) {
+                scheduler = Executors.newSingleThreadScheduledExecutor();
+                scheduler.scheduleAtFixedRate(new NewsCrawler(sce), 0, threadPoolTime, TimeUnit.MINUTES);
+            }
         }
     }
 
