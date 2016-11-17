@@ -43,24 +43,25 @@
             
         <%
             try{
-             PublicDiscussion pb=new PublicDiscussion(); 
+           
             
-            ArrayList<PublicDiscussion> arpb = (ArrayList<PublicDiscussion>)request.getAttribute("arpb");
-           for(int i=0;i<arpb.size();i++)    
-            {
+              PublicDiscussion pb = (PublicDiscussion)request.getAttribute("pb");
+          // for(int i=0;i<arpb.size();i++)    
+            //{
                 
                 
-                 pb=arpb.get(i);
+                 //pb=arpb.get(i);
                  out.println("<tr>");
-                 out.println("<td>User id:"+ pb.getUsertId()+"</td>");
+                 out.println("<td>Post id:"+ pb.getid()+"</td>");
+                 out.println("<td>User id:"+ pb.getUsername()+"</td>");
                 out.println("<td>Topic:"+ pb.getTopic()+"</td>");
                  out.println("<td>Content:"+ pb.getContent()+"</td>");
-                  out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
-                out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
+                 // out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
+               // out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
                  
                  out.println("</tr>");
                  
-            }   
+           // }   
             }
             catch (Exception e) {
             out.println(e.getMessage()+"test page");

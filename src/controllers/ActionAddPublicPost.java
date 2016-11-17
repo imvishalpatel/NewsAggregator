@@ -25,16 +25,16 @@ public class ActionAddPublicPost implements Action{
         String topic = request.getParameter("topic");
         
         String content = request.getParameter("content");
-        String[] checkBox = request.getParameterValues("cb");
-        String category=""; 
-        if(checkBox != null){
-        for(int i=0; i<checkBox.length; i++){
-            category=category+checkBox[i]+",";
-        }
-        if(!category.equals(""))
-        category=category.substring(0, category.length()-1);
+        String[] category = request.getParameterValues("cb");
+//        String[] category = new String[]; 
+//        if(checkBox != null){
+//        for(int i=0; i<checkBox.length; i++){
+//           
+//            category[i]=checkBox[i];
+//        }
+        //}
         
-        }
+        
         LinkedList<String> errors = new LinkedList<>();
         try {
             if (topic== null || topic.equals("")) {
@@ -47,8 +47,8 @@ public class ActionAddPublicPost implements Action{
                 request.setAttribute("error", errors);
                 viewPage = "PublicPost.jsp";
             } else {
-                PublicDiscussion pb = new PublicDiscussion();
-               pb.setPost(userId, topic, content,category);    
+                PublicDiscussion pb = new PublicDiscussion(userId, topic, content,category);
+                
                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
 
                 PublicPostDAO publicPostDao = new PublicPostDAO(mongo);

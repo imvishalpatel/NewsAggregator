@@ -2,70 +2,78 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bson.types.ObjectId;
 
 public class PublicDiscussion extends Discussion{
-	
-	
-	  private ArrayList<String> viewedBy=new ArrayList<String>();
-        private ArrayList<Comments> comment=new ArrayList<Comments>(); 
-        private ArrayList<String> category=new ArrayList<String>();
-	private Boolean spam;
-        private ArrayList<HashMap<String,String>> spamHistory=new ArrayList<HashMap<String,String>>();
-public Boolean isSpam()
-	{
-	return this.spam;
-	}
-	public void setPost(String userId,String topic,String content,String category)
-	{
-	
-        super.setUserId(userId);
-        super.setTopic(topic);
-        String[] str=content.split("#");
-        super.setContent(str[0]);
-        String str1="";
-        	for(int i=1;i<str.length;i++)
-                {
-                    str1=str1 + str[i]+",";
-                }
-                if(!str1.equals(""))
-                str1=str1.substring(0,str1.length()-1);
-                super.setTags(str1);
-                
-        String[] temp=category.split(",");
-        	for(int i=0;i<temp.length;i++)
-                {
-                        this.category.add(temp[i]);
-                }
-	}
- public String getCategoryString()
-	{
-            String str="";
-	for(int i=0;i<category.size();i++)
-        {
-           str=str+category.get(i)+",";
-        }
-        if(!str.equals(""))
-        str=str.substring(0, str.length()-1);
-      
-        return str;
-        
-	}
-               public void setCategory(String tagString)
-        {
-            if(tagString!=null)
-            {
-            String[] str=tagString.split(",");
-        
-        	for(int i=0;i<str.length;i++)
-                {
-                    category.add(str[i]);
-                
-               }
-            }
-            else 
-        category=null;
-        }
 
-        
+	private ArrayList<String> userlist;
+	private ArrayList<String> category;
+	private boolean isSpam;
+	private HashMap<String, String> spamHistory;
+ 	
+	public PublicDiscussion(String username, String topic, String content, String[] category) {
+		this(username, topic, content);
+		
+		this.category=new ArrayList<String>();
+		
+		for(String cat : category){
+			this.category.add(cat);
+		}
+	}
+
+	public PublicDiscussion(String username, String topic, String content){
+		super(username, topic, content);
+		
+		setUserlist(new ArrayList<String>());
+		setSpam(false);
+		setSpamHistory(new HashMap<String, String>());
+		
+		this.category=null;
+	}
+
+	public ArrayList<String> getUserlist() {
+		return userlist;
+	}
+
+	public void setUserlist(ArrayList<String> userlist) {
+		this.userlist = userlist;
+	}
+
+	public ArrayList<String> getCategory() {
+		return category;
+	}
+
+	public void setCategory(ArrayList<String> category) {
+		this.category = category;
+	}
+
+	public boolean isSpam() {
+		return isSpam;
+	}
+
+	public void setSpam(boolean isSpam) {
+		this.isSpam = isSpam;
+	}
+
+	public HashMap<String, String> getSpamHistory() {
+		return spamHistory;
+	}
+
+	public void setSpamHistory(HashMap<String, String> spamHistory) {
+		this.spamHistory = spamHistory;
+	}
+
+	public void reportSpam(String username, String reason){
+		setSpam(true);
+		spamHistory.put(username, reason);
+	}
+	
+	public void view(String username){
+		
+		if(!userlist.contains(username))
+			userlist.add(username);
+	}
+	
+	public int getViewCount(){
+		return userlist.size();
+	}
 }

@@ -1,20 +1,24 @@
 <%-- 
-    Document   : PublicPost
-    Created on : Oct 23, 2016, 4:04:30 AM
+    Document   : PublicMyDiscussion
+    Created on : Nov 15, 2016, 8:04:27 PM
     Author     : BHAVESH GOYAL
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="model.PublicDiscussion"%>
+<%@page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
+<html>
+    <head>
+       <meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	
 	
 	<title>News Aggregator</title>
-
+		
 	<link rel="shortcut icon" href="images/favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
@@ -33,8 +37,9 @@
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
-</head>
-     
+	
+    </head>
+    
 <body>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
@@ -42,7 +47,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="http://localhost:8080/NewsAggregator/assets/images/logo.png" alt="News Aggregator"></a>
+				<a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="News Aggregator"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
@@ -92,43 +97,113 @@
 			<ul class="nav navbar-nav pull-right" style="margin-top: 51px;">
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
-						<li><a href="Controller?action=publicmydiscussion" class="current btn-theme btn-small">My Discussion</a></li>
-						<li><a href="Controller?action=publicdetailview" class="btn-theme btn-small">Discussion List</a></li>
-						<li><a href="#" class="btn-theme btn-small">Most Viewed Post</a></li>
+						<li><a href="new_discussion_page.html" class="current btn-theme btn-small">New Discussion</a></li>
+						<li><a href="my_discussion_list.html" class="btn-theme btn-small">My Discussion</a></li>
+						<li><a href="detailed_discussion_list.html" class="btn-theme btn-small">Discussion List</a></li>
 						<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
 					</ul>
 				</nav>
 			</ul>
-			<article class="col-md-8 maincontent" style="width: 1168px;">
-				
-				<ul class="nav nav-tabs" style="font-size:18px ">
-					<li class="active"><a data-toggle="tab" href="#new_post">New Post</a></li>
-				</ul>
-				<div class="tab-content">
-					<div id="new_post" class="tab-pane fade in active">
-					  <div class="col-md-12">
-					  	<form action="Controller?action=addpublicpost" method="post" style="margin-top: 2px;">
-							<h3>Topic : </h3>
-							<input type="text" id="topic" name="topic" placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
-							<h3>Post : </h3>
-							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
-							<h3>Select Category : </h3>
-							<input type="checkbox" name="cb" value="Political"> Political <br/>
-							<input type="checkbox" name="cb" value="Education"> Education  <br/>
-							<input type="checkbox" name="cb" value="Sports"> Sports  <br/>
-							<input type="checkbox" name="cb" value="Music"> Music <br/>
-							<input type="checkbox" name="cb" value="History"> History <br/>
-						
-						<div style="margin-top: 50px; margin-left: -13px;">
-                                                    <button type="submit" class="btn btn-action">Post</button>
-							<button id="btn_post" class="btn btn-action">Reset Post</button>
+			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -59px;">
+				<div class="row panel">
+					<div class="col-xs-10">
+						<h5>News Feed</h5>
+					</div>
+					<div class="row panel">
+						<div class="col-xs-8">
+							<ul>
+								<a href="#"><li><h5>Education</h5></li></a>
+								<a href="#"><li><h5>Technology</h5></li></a>
+								<a href="#"><li><h5>Sports</h5></li></a>
+								<a href="#"><li><h5>Politics</h5></li></a>
+								<a href="#"><li><h5>Movies</h5></li></a>
+							</ul>
 						</div>
-                                                        </form>
-					  </div>		
-					 </div>
+					</div>
+					
+				</div>
+			</aside>
+			<article class="col-md-8 maincontent" style="margin-top: 44px;">
+				<div class="list-group">
+                                    
+            
+        <%
+            try{
+             PublicDiscussion pb; 
+            ArrayList<String> tag=new ArrayList<String>();
+            ArrayList<PublicDiscussion> arpb = (ArrayList<PublicDiscussion>)request.getAttribute("arpb");
+           for(int i=0;i<arpb.size();i++)    
+            {
+                pb=arpb.get(i);
+//                if(pb.getUsertId().equals("bgoyal2222"))
+//                {
+                 
+                 
+//                 out.println( pb.getUsertId());
+//                out.println(pb.getTopic());
+//                 out.println("<td>Content:"+ pb.getContent()+"</td>");
+//                  out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
+//                out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
+//                 
+                 
+            
+        %>
+        
+					<a href="Controller?action=publicdetailview&postid=<%out.println(pb.getid());%>" class="list-group-item">
+					  <h4 class="list-group-item-heading">
+						<%out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%></span>
+					  </h4>
+					  <p class="list-group-item-text">
+						<%out.println(pb.getContent());%><br/><br/>
+								
+						<h5>
+                                                    <% 
+                                                tag=pb.getTags();
+                                               
+                                                for(int j=0;j<tag.size();j++)
+                                                {
+					out.println("<span id='tg11' class='badge'>#"+tag.get(j)+"</span>");
+							//<span id="tg12"class="badge">#Plitical</span>
+                                                        
+                                                }      
+                                                    
+                                                    %>
+							<span id="t13" class="badge" style="float:right;"><%out.println(pb.getUsername());%></span>
+						</h5>
+						<!--Content for the topic-->
+					  </p>
+					</a>
+					<%
+                                                     //   }
+            }   
+            }
+            catch (Exception e) {
+            out.println(e.getMessage()+" my discussion page");
+        }
+                                        
+                                        %>
 				</div>
 			</article>
-			
+			<aside class="col-md-2 sidebar sidebar-right" style="padding-left: 15px; margin-left: 44px;">
+				<div class="col-xs-10">
+						<h5>Trending Topics</h5>
+				</div>
+				<div class="row panel">
+					<div class="col-xs-12">
+						<ul>
+							<a href="#"><li><h5>Indian Army's sergical strike in PoK</h5></li></a>
+							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
+							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
+							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
+							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
+							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+						</ul>
+					</div>
+				</div>
+			</aside>
 		</div>
 	</div>	<!-- /container -->
 	
@@ -195,4 +270,5 @@
 	<script src="js/jQuery.headroom.min.js"></script>
 	<script src="js/custom.js"></script>
 </body>
+
 </html>

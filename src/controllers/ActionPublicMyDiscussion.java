@@ -8,7 +8,6 @@ package controllers;
 import com.mongodb.MongoClient;
 import dao.PublicPostDAO;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.PublicDiscussion;
@@ -17,23 +16,21 @@ import model.PublicDiscussion;
  *
  * @author BHAVESH GOYAL
  */
-public class ActionPublicDetailView implements Action {
-    private String viewPage = "PublicDetailedDiscussion.jsp";
-String post_id;
+public class ActionPublicMyDiscussion implements Action {
+    private String viewPage = "PublicMyDiscussion.jsp";
+
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-      //          PublicDiscussion pb = new PublicDiscussion();
-          post_id=request.getParameter("postid");
-        
+              //  PublicDiscussion pb = new PublicDiscussion();
+          
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
 
                 PublicPostDAO publicPostDao = new PublicPostDAO(mongo);
                
               //  System.out.println("Publicpost action id=" + pb.getPostId());
                   ArrayList<PublicDiscussion> arpb = new ArrayList<PublicDiscussion>();
-                PublicDiscussion pb=null;
-                  pb=publicPostDao.showDetailPost(post_id);
-                request.setAttribute("pb",pb);
+                arpb=publicPostDao.showPost();
+                request.setAttribute("arpb",arpb);
             
             
             
@@ -43,6 +40,5 @@ String post_id;
        
         return viewPage;
     }
-
     
 }

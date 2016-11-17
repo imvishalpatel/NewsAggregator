@@ -6,82 +6,144 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+
 import org.bson.types.ObjectId;
 
-/**
- *
- * @author BHAVESH GOYAL
- */
 public class Discussion {
-    private ObjectId postId;
-	private String userId;
+    
+	private ObjectId id;
+	private String username;
 	private String topic;
-        private String content;
-	private ArrayList<String> tags=new ArrayList<String>();
-       private ArrayList<HashMap<String,Integer>> voter=new ArrayList<HashMap<String,Integer>>();
-       	private Boolean status;
-        public void setPostId(ObjectId id)
-        {
-            this.postId=id;
-        }
-        public void setUserId(String userId)
-        {
-            this.userId=userId;
-        }
-        public void setTopic(String topic)
-        {
-            this.topic=topic;
-        }
-        public void setContent(String content)
-        {
-            this.content=content;
-        }
+	private String content;
+	private ArrayList<String> tags;
+	//private String tags;
+	private HashMap<String,Integer> votes;
+    private Boolean status;
+    private Date date;
+    private ArrayList<Comment> comments;
+    
+    public Discussion(String username, String topic, String content){
+    	status=true;
+    	setDate(new Date());
+    	votes=new HashMap<String,Integer>();
+    	setComments(new ArrayList<Comment>());
+    	id=null;
+    	
+    	setUsername(username);
+    	setTopic(topic);
+        String[] str=content.split("#");
         
-        public void setTags(String tagString)
-        {
-           if(tagString!=null)
-            {String[] str=tagString.split(",");
         
-        	for(int i=0;i<str.length;i++)
-                {
-                    tags.add(str[i]);
-                }
-            }
-           else 
-               tags=null;
-        }
-	public ObjectId getPostId()
-	{
-	return this.postId;
-	}
-        
-	public String getUsertId()
-	{
-	return this.userId;
-	}
-	 public Boolean isOpen()
-	{
-	return this.status;
+    	setContent(str[0]);
+    	setTags(content);
+    }
+       
+	public String getUsername() {
+		return username;
 	}
 
-	public String getContent()
-	{
-	return this.content;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String getTopic()
-	{
-	return this.topic;
+
+	public String getTopic() {
+		return topic;
 	}
-        public String getTagsString()
-	{
-            String str="";
-	for(int i=0;i<tags.size();i++)
-        {
-           str=str+tags.get(i)+",";
-        }
-        if(!str.equals(""))
-        str=str.substring(0, str.length()-1);
-        return str;
+
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getVotes() {
+		int totalvotes=0;
+		for(Integer v : votes.values()){
+			totalvotes+=v;
+		}
+		return totalvotes;
+	}
+
+	public void setVotes(HashMap<String, Integer> votes) {
+		this.votes=votes;
+	}
+
+	public void vote(String username, int vote) {
+		votes.put(username, vote);
+	}
+	
+	public HashMap<String, Integer> getVoteList() {
+		return votes;
+	}
+	
+	public Boolean getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+
+	public String getDate() {
+		return date.toString();
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public ArrayList<String> getTags() {
+		return tags;
+	}
+	
+	public void setTags(String content) {
+		tags=new ArrayList<String>();
+		String[] tagList=content.split("#");
+		
+		
+		for(int i=1 ; i<tagList.length ; i++){
+			addTag(tagList[i]);
+		}
+	}
+
+	public void setTags(ArrayList<String> tags){
+		this.tags=tags;
+	}
+	
+	public void addTag(String tag){
+		tags.add(tag);
+	}
+	
+	public ArrayList<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(ArrayList<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	public void addComments(String comment, String username) {
+		comments.add(new Comment(comment, username));
+	}
+
+	public ObjectId getid() {
+		return id;
+	}
+
+	public void setid(ObjectId id) {
+		this.id = id;
+	}
+        
+        
 }
