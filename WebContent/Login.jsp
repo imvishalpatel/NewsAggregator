@@ -84,64 +84,46 @@
 
 
         <ul class="nav nav-tabs">
-
-            <li class="active"><a data-toggle="tab" href="#signup">SIGNUP</a></li>
+            <li class="active"><a data-toggle="tab" href="#signin">SIGNIN</a></li>            
             </ul>
 
             <div class="tab-content">
-
-                <div id="signup" class="tab-pane fade in active">
+                <div id="signin" class="tab-pane fade in active">
                     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <h3 class="thin text-center">Registration</h3>
+                                <h3 class="thin text-center">Login</h3>
                                 <hr>
                                 <!--check whether any validation error-->
-                            <c:if test="${requestScope.signupErr ne null}">
-                                <c:forEach items="${signupErr}" var="current">
+                            <c:if test="${requestScope.loginErr ne null}">
+                                <c:forEach items="${loginErr}" var="current">
                                     <div class="alert alert-danger fade in">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         <strong>Required!</strong>
                                         <c:out value="${current}" />
                                     </div>
                                 </c:forEach>
+                                <hr>
                             </c:if>
-                            <!--validation end-->
                             <form action="Controller" method="post">
-                                <input type="hidden" name="action" value="adduser" />
+                                <input type="hidden" name="action" value="login" />
                                 <div class="top-margin">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" name="firstname" value="${requestScope.firstname}">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" name="lastname" value="${requestScope.lastname}">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Username<span class="text-danger">*</span></label>
+                                    <label>Username/Email <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="username" value="${requestScope.username}">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Email Address <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="email" value="${requestScope.email}">
-                                </div>
-
-                                <div class="row top-margin">
-                                    <div class="col-sm-6">
-                                        <label>Password <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" name="password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label>Confirm Password <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control">
-                                    </div>
+                                    <label>Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="password">
                                 </div>
 
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <button class="btn btn-action" type="submit">Register</button>
+                                    <div class="col-lg-8">
+                                        <b><a href="signin_Page.html">Forgot password?</a></b>
+                                    </div>
+                                    <div class="col-lg-4 text-right">
+                                        <button class="btn btn-action" type="submit">LogIn</button>
                                     </div>
                                 </div>
                             </form>
@@ -150,6 +132,7 @@
 
                 </div>
             </div>
+
         </div>
 
     </div>	<!-- /container -->
