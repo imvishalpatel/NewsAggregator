@@ -19,7 +19,9 @@
         <filter-name>RequestFilter</filter-name>
         <servlet-name>Controller</servlet-name>
     </filter-mapping>
-        
+    <session-config>
+        <session-timeout> 10 </session-timeout>
+    </session-config>
     <context-param>
         <param-name>NewsThread</param-name>
         <param-value>false</param-value>
