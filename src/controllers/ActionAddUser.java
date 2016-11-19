@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import Constants.GlobalConstants;
 import com.mongodb.MongoClient;
 import dao.UserDAO;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class ActionAddUser implements Action {
                 u.setImgSource("");
              
                 
-                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute(GlobalConstants.MONGO_CLIENT);
                 UserDAO userDao = new UserDAO(mongo);
 
                 if (!userDao.isExists(u)) { // check if user exist or not 

@@ -33,7 +33,7 @@ public class ActionLogin implements Action {
                 request.setAttribute("loginErr", errors);
             } else {
                 username = username.trim();
-                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute(GlobalConstants.MONGO_CLIENT);
                 UserDAO dao = new UserDAO(mongo);
 
                 // created tmp user to pass in function

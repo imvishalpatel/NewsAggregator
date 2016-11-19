@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import Constants.GlobalConstants;
 import com.mongodb.MongoClient;
 import dao.UserDAO;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ActionConfirmUser implements Action {
         }
 
         try {
-            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute(GlobalConstants.MONGO_CLIENT);
             UserDAO userDao = new UserDAO(mongo);
 
             User u = userDao.searchByObjectId(key);

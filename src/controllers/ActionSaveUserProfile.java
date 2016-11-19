@@ -46,7 +46,7 @@ public class ActionSaveUserProfile implements Action {
             if (errors.size() > 0) {
                 request.setAttribute("userProfileErr", errors);
             } else {
-                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+                MongoClient mongo = (MongoClient) request.getServletContext().getAttribute(GlobalConstants.MONGO_CLIENT);
                 UserDAO userDao = new UserDAO(mongo);
 
                 User updateUser = (User) request.getSession().getAttribute(GlobalConstants.LOGGED_IN_USER);

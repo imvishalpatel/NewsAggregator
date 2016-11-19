@@ -120,7 +120,7 @@
 
                                 <div class="row">
                                     <div class="col-lg-8">
-                                        <b><a href="signin_Page.html">Forgot password?</a></b>
+                                        <b><a href="Controller?action=forgot">Forgot password?</a></b>
                                     </div>
                                     <div class="col-lg-4 text-right">
                                         <button class="btn btn-action" type="submit">LogIn</button>

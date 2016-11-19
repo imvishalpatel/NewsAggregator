@@ -1,13 +1,11 @@
 package controllers;
 
+import Constants.GlobalConstants;
+import com.mongodb.MongoClient;
+import dao.UserDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.User;
-
-import com.mongodb.MongoClient;
-
-import dao.UserDAO;
 
 public class ActionUpdatePassword implements Action {
 
@@ -21,7 +19,7 @@ public class ActionUpdatePassword implements Action {
         String password = "123";
         //String password=request.getAttribute("password").toString();
         try {
-            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
+            MongoClient mongo = (MongoClient) request.getServletContext().getAttribute(GlobalConstants.MONGO_CLIENT);
             UserDAO dao = new UserDAO(mongo);
 
             User u = dao.searchUser("vnation"); //fetch from session
