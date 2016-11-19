@@ -4,6 +4,7 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.PublicDiscussion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,7 +19,7 @@
 	
 	<title>News Aggregator</title>
 		
-	<link rel="shortcut icon" href="images/favicon.png">
+	<link rel="shortcut icon" href="assest/images/favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assest/css/bootstrap.min.css">
@@ -39,14 +40,14 @@
 	
 </head>
 
-<body>
+<<body>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="News Aggregator"></a>
+				<a class="navbar-brand" href="#"><img src="assest/images/logo.png" width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
@@ -77,7 +78,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
 						<li><a href="profile_page.html">User Profile</a></li>
-						<li><a href="reset_pwd_page.html">Reset Password</a></li>
+						<li><a href="change_password.html">Change Password</a></li>
 						<li><a href="signIn_Page.html">Logout</a></li>
 					</ul>
 				</li>
@@ -123,14 +124,13 @@
 				</div>
 			</aside>
 			<article class="col-md-8 maincontent" style="margin-top: 44px;">
-				<div class="list-group">
-                                    
-            
-         <%
+                                     <%
             try{
                      ArrayList<String> tag=new ArrayList<String>();
             
               PublicDiscussion pb = (PublicDiscussion)request.getAttribute("pb");
+              
+              
           // for(int i=0;i<arpb.size();i++)    
             //{
                 
@@ -149,27 +149,22 @@
            // }   
            
         %>
+
+				<div class="list-group">
 					<div id="list" class="list-group-item">
 					  <h4 class="list-group-item-heading">
-						<%   out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%></span>
+						<%   out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%> Views</span>
 					  </h4>
 					  <div id="desc">
-					  	<table border="0" id="desc1">
-							<tr valign="top">
-								<td width="25px" align="center">
-									<a class="fa fa-arrow-up fa-lg" aria-hidden="true" style="text-decoration:none; cursor:pointer;"></a><br/><br/>
-									<a class="fa fa-arrow-down fa-lg" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a>
-								</td>
+					  	<table border="0" id="main_discussion">
+							<tr>
 								<td>
-									<table id="inner-table">
-										<tr>
-											<tr id="main_discussion">
-												<p class="list-group-item-text">
-													<%
+									<p class="list-group-item-text">
+										<%
                  out.println(pb.getContent());%><br/><br/>
-															
-													<h5>
-                                                    <% 
+												
+										<h5>
+											 <% 
                                                 tag=pb.getTags();
                                                
                                                 for(int j=0;j<tag.size();j++)
@@ -180,43 +175,63 @@
                                                 }      
                                                     
                                                     %>
-							<span id="t13" class="badge" style="float:right;"><%out.println(pb.getUsername());%></span>
-						</h5>
-												</p>
-											</tr>
-											<tr id="diss_1">
-												<hr/>
-												Sergical Strike is done by the indian army. I salute the Army. - <a href="#">User_Name</a><br/>
-											</tr>		
-											<tr id="additional">
-												<hr/>
-												<a href="#post_answer_textarea">add a comment</a>
-											</tr>
-										</tr>
-									</table>
+
+											<img src="" alt="User_Pic" style="margin-left: 421px;"/><a href="#" style="float:right;"><%out.println(pb.getUsername());%></a>
+										</h5>
+										<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><%out.println(pb.getUpVotes());%>&nbsp;
+										<a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><%out.println(pb.getDownVotes());%>&nbsp;
+										<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>
+									</p>
 								</td>
 							</tr>
+						</table><br/>
+						<h4><div id="cmt_title" style="color:#3399CC;">Comment Section</div></h4><hr/>
+						<div id="add_comment">
+							<form id="post_answer_textarea">
+								<textarea id="post-dis" cols="75" rows="4" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
+							</form>
+							<div style="margin-top: 50px; margin-left: -13px;">
+								<button id="btn_post" class="btn btn-info" style="padding-left: 40px; margin-left: 13px; padding-top: 10px; margin-top: -66px;">Post Comment</button>
+							</div>
+						</div>													
+						<table border="0" id="Comment" width="800">
+							
+                                                            <%ArrayList<Comment> comm=pb.getComments();
+                                                            
+                                                            
+                                                            for(int j=0;j<comm.size();j++)
+                                                {
+                                                    
+                                                
+                                                            %>
+                                                            <tr >
+								<td>
+                                                                    <%out.println(comm.get(j).getComment());
+                                                                        %> - <a href="#"><%out.println(comm.get(j).getUserName());
+                                                                        %></a>
+									<br/>
+									<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer">Upvote</a>&nbsp;
+									<a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer">Downvote</a>&nbsp;&nbsp;
+									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;
+									<a href="#" id="cmt_on_cmt">add a comment</a>
+									<hr/>
+								</td>
+							</tr>
+							<%}%>
 						</table>
+						<br/>
 	  				  </div>
 					</div>
-                                          
-                                                <%
+				</div>
+				<br/>
+				                                          <%
+                                                
                                                  }
             catch (Exception e) {
             out.println(e.getMessage()+"test page");
         }
                                                 %>
-				</div>
-				<br/>
-				<div id="post_new_answer">
-					<header>
-						<b>Your Answer</b>					
-					</header>
-					<br/>
-					<form id="post_answer_textarea">
-						<textarea id="post-dis" cols="85" rows="6" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
-					</form>
-				</div>
+	
 			</article>
 			<aside class="col-md-2 sidebar sidebar-right" style="padding-left: 15px; margin-left: 44px;">
 				<div class="col-xs-10">
@@ -300,8 +315,8 @@
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="js/headroom.min.js"></script>
-	<script src="js/jQuery.headroom.min.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="assest/js/headroom.min.js"></script>
+	<script src="assest/js/jQuery.headroom.min.js"></script>
+	<script src="assest/js/custom.js"></script>
 </body>
 </html>

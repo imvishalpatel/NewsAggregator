@@ -15,7 +15,7 @@
 	
 	<title>News Aggregator</title>
 
-	<link rel="shortcut icon" href="images/favicon.png">
+	<link rel="shortcut icon" href="assest/images/favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assest/css/bootstrap.min.css">
@@ -42,7 +42,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="http://localhost:8080/NewsAggregator/assets/images/logo.png" alt="News Aggregator"></a>
+				<a class="navbar-brand" href="#"><img src="assest/images/logo.png" width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">

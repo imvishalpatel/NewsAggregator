@@ -64,10 +64,19 @@ public class Discussion {
 		this.content = content;
 	}
 
-	public int getVotes() {
+	public int getUpVotes() {
 		int totalvotes=0;
 		for(Integer v : votes.values()){
+                    if(v==1)	
 			totalvotes+=v;
+		}
+		return totalvotes;
+	}
+        public int getDownVotes() {
+		int totalvotes=0;
+		for(Integer v : votes.values()){
+		if(v==-1)	
+                    totalvotes+=v;
 		}
 		return totalvotes;
 	}
