@@ -15,7 +15,7 @@ public class ActionLogin implements Action {
     public String process(HttpServletRequest request,
             HttpServletResponse response) {
         LinkedList<String> errors = new LinkedList<>();
-        String view = "Signup.jsp";
+        String view = "Login.jsp";
         try {
 
             String username = (String) request.getAttribute("username");
@@ -53,6 +53,8 @@ public class ActionLogin implements Action {
                             //Set session
                             request.getSession().setAttribute("username", username);
                             request.getSession().setAttribute("userType", user.getType());
+                            // once user successfully authenticate return it to home
+                            // for tmp i have redireted to public post page
                             return "PublicPost.jsp";
                         } else {
                             errors.add("You have not verified your email id yet.");
