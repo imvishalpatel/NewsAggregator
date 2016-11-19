@@ -24,18 +24,13 @@ public class ActionAddNewPassword implements Action {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-        String key = (String) request.getAttribute("_key");
-
-        // TODO
-        if (key == null || key.equals("")) {
-            viewPage = "Error.jsp";
-            return viewPage;
-        }
 
         String newPassword = request.getParameter("newpassword");
         String confirmNewPassword = request.getParameter("confirmnewpassword");
+        String userid = request.getParameter("userid");
         LinkedList<String> errors = new LinkedList<>();
         try {
+            // if user not found in session
             if (newPassword == null || newPassword.equals("")) {
                 errors.add("New Password can not be blank");
             }
@@ -51,14 +46,18 @@ public class ActionAddNewPassword implements Action {
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
                 UserDAO userDao = new UserDAO(mongo);
 
-                User u = userDao.searchByObjectId(key);
+                User u = userDao.searchByObjectId(userid);
                 if (u != null) {
                     u.setPassword(newPassword);
                     userDao.updateUser(u);
                     StringBuilder sb = new StringBuilder();
+                    System.out.println("[LOGGING] -> Password has been changed for user=" + u.getEmail());
                     sb.append("Your password has been changed.");
 
                     boolean mailStatus = Mail.send(u.getEmail(), "[IMPORTANT] Changed Password", sb.toString());
+                    ArrayList<String> error = new ArrayList<>();
+                    error.add("You have successfully changed your password. Login in using your new password");
+                    request.setAttribute("loginErr", error);
                 } else {
                     ArrayList<String> error = new ArrayList<>();
                     error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");

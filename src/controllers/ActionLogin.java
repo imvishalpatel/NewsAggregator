@@ -1,5 +1,6 @@
 package controllers;
 
+import Constants.GlobalConstants;
 import com.mongodb.MongoClient;
 import dao.UserDAO;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class ActionLogin implements Action {
 
             String username = (String) request.getAttribute("username");
             String password = (String) request.getAttribute("password");
+
             if (username == null || username.equals("")) {
                 errors.add("Username can not be blank");
             }
@@ -30,45 +32,59 @@ public class ActionLogin implements Action {
             if (errors.size() > 0) {
                 request.setAttribute("loginErr", errors);
             } else {
+                username = username.trim();
                 MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
                 UserDAO dao = new UserDAO(mongo);
 
-                User user = dao.searchUser(username);
+                // created tmp user to pass in function
+                User tmpUser = new User();
+                tmpUser.setUsername(username);
+                tmpUser.setEmail(username);
+                tmpUser.setPassword(password);
 
-                String message;
+                // fetch user by username or email
+                User foundUser = dao.searchUserByUsernameOrEmail(tmpUser);
 
-                if (user.getUsername().equals(username.trim())) {
-                    if (user.getPassword().trim().equals(password.trim())) {
-                        if (user.isVerified()) {
-                            message = "Login Sucessful for user=" + user.getUsername();
-                            System.out.println(message);
+                if (foundUser != null) {
 
-                            //Add this user object to active list
-                            Map<String, User> activeUsers = (Map<String, User>) request.getServletContext().getAttribute("activeUSers");
-                            if (activeUsers == null) {
-                                activeUsers = new HashMap<>();
+                    String message;
+
+                    // compare user entered email or username
+                    if (foundUser.getUsername().equals(tmpUser.getUsername()) || foundUser.getEmail().equals(tmpUser.getEmail())) {
+                        if (foundUser.getPassword().trim().equals(tmpUser.getPassword())) {
+                            if (foundUser.isVerified()) {
+                                message = "Login Sucessful for user=" + foundUser.getUsername();
+                                System.out.println(message);
+
+                                //Add this user object to active list
+                                Map<String, User> activeUsers = (Map<String, User>) request.getServletContext().getAttribute("activeUSers");
+                                if (activeUsers == null) {
+                                    activeUsers = new HashMap<>();
+                                }
+                                activeUsers.put(username, foundUser);
+
+                                //Set session
+                                request.getSession().setAttribute(GlobalConstants.LOGGED_IN_USER, foundUser);
+                                request.getSession().setAttribute("userType", foundUser.getType());
+                                // once user successfully authenticate return it to home
+                                // for tmp i have redireted to public post page
+                                return "PublicPost.jsp";
+                            } else {
+                                errors.add("You have not verified your email id yet.");
+                                request.setAttribute("loginErr", errors);
                             }
-                            activeUsers.put(username, user);
-
-                            //Set session
-                            request.getSession().setAttribute("username", username);
-                            request.getSession().setAttribute("userType", user.getType());
-                            // once user successfully authenticate return it to home
-                            // for tmp i have redireted to public post page
-                            return "PublicPost.jsp";
                         } else {
-                            errors.add("You have not verified your email id yet.");
+                            errors.add("The password you entered is incorrect");
                             request.setAttribute("loginErr", errors);
                         }
                     } else {
-                        errors.add("The password you entered is incorrect");
+                        errors.add("The username you entered is incorrect");
                         request.setAttribute("loginErr", errors);
                     }
                 } else {
-                    errors.add("The username you entered is incorrect");
+                    errors.add("!Incorrect Username and Password");
                     request.setAttribute("loginErr", errors);
                 }
-
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

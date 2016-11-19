@@ -16,6 +16,7 @@ public class ApplicationListener implements ServletContextListener{
 		
 		Map<String, User> activeUsers=((Map<String, User>)arg.getServletContext().getAttribute("activeUsers"));
 		activeUsers=null;
+                arg.getServletContext().setAttribute("activeUsers",activeUsers);
 	}
 
 	@Override

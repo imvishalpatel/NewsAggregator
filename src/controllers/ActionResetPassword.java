@@ -39,15 +39,20 @@ public class ActionResetPassword implements Action {
             User u = userDao.searchByObjectId(key);
 
             if (u != null) {
-                if (u.getPassword().equals("null")) {
+                // if user already clicked reset password link but again click on the link
+                // then this method handles
+                if (u.getPassword().equals(u.getId().toString())) {
                     // pass key as parameter because in new password servlet i need referce of which user want to update password
-                    viewPage = "ResetPassword.jsp?key=" + u.getId();
+                    // set user in session
+                    request.setAttribute("userid", u.getId());
+                    viewPage = "ResetPassword.jsp";
                     return viewPage;
                 }
-                u.setPassword("null");
-                System.out.println("LOGGING --> password set to NULL for " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
+                u.setPassword(u.getId().toString());
+                System.out.println("LOGGING --> password set to" + u.getId() + " for " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
                 userDao.updateUser(u);
-                viewPage = "ResetPassword.jsp?key=" + u.getId();
+                request.setAttribute("userid", u.getId());
+                viewPage = "ResetPassword.jsp";
                 return viewPage;
             } else {
                 ArrayList<String> error = new ArrayList<>();

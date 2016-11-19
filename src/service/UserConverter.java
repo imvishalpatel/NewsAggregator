@@ -44,14 +44,14 @@ public class UserConverter {
     public static User toUsers(DBObject doc) throws Exception {
         System.out.println("converting for" + doc.get("firstname"));
         User u = new User();
-        u.setVerified(Boolean.parseBoolean(doc.get("verified").toString()));
+        u.setVerified((boolean) doc.get("verified"));
         u.setType(String.valueOf(doc.get("type")).charAt(0));
 
-        u.setUsername(doc.get("username").toString());
-        u.setPassword(doc.get("password").toString());
-        u.setFirstName(doc.get("firstname").toString());
-        u.setLastName(doc.get("lastname").toString());
-        u.setEmail(doc.get("email").toString());
+        u.setUsername((String) doc.get("username"));
+        u.setPassword((String) doc.get("password"));
+        u.setFirstName((String) doc.get("firstname"));
+        u.setLastName((String) doc.get("lastname"));
+        u.setEmail((String) doc.get("email"));
 
         Date ldate = new Date();
         Date rdate = new Date();
