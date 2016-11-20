@@ -1,6 +1,20 @@
 # NewsAggregator
 Sen final year project.
 
+### How to send mail using template
+    // content before button
+    String firstMessage = "Verify yourself and be a member of vidico community.";
+    // value you want to show i.e click here or reset password or confirm
+    String buttonValue = "Confirm";
+    // link for button
+    String confirmationUrl = "http://localhost:8084/NewsAggregator/Controller?action=confirm&key=" + u.getId();
+    // content after button
+    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser." + "<br> " + confirmationUrl;
+    
+    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, confirmationUrl);
+                    
+    boolean mailStatus = mailContent.sendMail(u.getEmail(), "Confirmatiom Mail");
+    
 ### How to use sequence
             MongoClient mongo = (MongoClient) request.getServletContext().getAttribute("MONGO_CLIENT");
             SequenceDAO seqDao = new SequenceDAO(mongo);

@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
-import util.Mail;
+import util.MailService;
 
 /**
  *
@@ -47,13 +47,16 @@ public class ActionForgotPassword implements Action {
 
                 if (foundUser != null) {
 
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("You have requested to reset your password");
-                    sb.append("Click on the below link to reset your password.");
-                    System.out.println(foundUser.getId());
-                    sb.append("Link : http://localhost:8084/NewsAggregator/Controller?action=resetpassword&key=" + foundUser.getId());
-
-                    boolean mailStatus = Mail.send(u.getEmail(), "[IMPORTANT] Reset Password", sb.toString());
+                    String firstMessage = "You have requested to reset your password.";
+                    String buttonValue = "Reset Password";
+                    String buttonUrl = "http://localhost:8084/NewsAggregator/Controller?action=resetpassword&key=" + foundUser.getId();
+                    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser."
+                            + "<br> " + buttonUrl;
+                    
+                    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, buttonUrl);
+                
+                    boolean mailStatus = mailContent.sendMail(u.getEmail(),"[IMPORTANT] Reset Password");
+                    
                     errors.add("Check your mail regarding to reset your password");
                     request.setAttribute("signupSucc", errors);
                 } else {
