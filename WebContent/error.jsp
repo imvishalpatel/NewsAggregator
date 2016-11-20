@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>404 not found</title>
 </head>
 <body>
-	This is error page.
+	404 not found page
 </body>
 </html>

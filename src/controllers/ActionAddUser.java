@@ -32,6 +32,12 @@ public class ActionAddUser implements Action {
         String lastName = request.getParameter("lastname");
         LinkedList<String> errors = new LinkedList<>();
         try {
+            if (firstName == null || firstName.equals("")) {
+                errors.add("Firstname can not be blank");
+            }
+            if (lastName == null || lastName.equals("")) {
+                errors.add("Lastname can not be blank");
+            }
             if (username == null || username.equals("")) {
                 errors.add("Username can not be blank");
             }
@@ -74,9 +80,11 @@ public class ActionAddUser implements Action {
 
                     boolean mailStatus = Mail.send(u.getEmail(), "confirmation code", mailContent);
 
-                    String[] parameters = {u.getFirstName(), u.getEmail()};
-                    request.setAttribute("signupSucc", parameters);
-                    viewPage = "TestPage.jsp";
+                    errors.add("Congratulations " + u.getFirstName() +", your registration is complete");
+                    errors.add("We have sent a mail on your email id " + u.getEmail() + " to verify your identity.");
+                    errors.add("verify yourself and be a member of vidico community.");
+                    request.setAttribute("signupSucc", errors);
+                    viewPage = "Login.jsp";
                 } else {
                     System.out.println("User exists............."); // logs
                     errors.add("User exists, choose another username or email");

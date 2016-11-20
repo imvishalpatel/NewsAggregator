@@ -58,7 +58,7 @@ public class ActionAddNewPassword implements Action {
                     boolean mailStatus = Mail.send(u.getEmail(), "[IMPORTANT] Changed Password", sb.toString());
                     ArrayList<String> error = new ArrayList<>();
                     error.add("You have successfully changed your password. Login in using your new password");
-                    request.setAttribute("loginErr", error);
+                    request.setAttribute("signupSucc", error);
                 } else {
                     ArrayList<String> error = new ArrayList<>();
                     error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");

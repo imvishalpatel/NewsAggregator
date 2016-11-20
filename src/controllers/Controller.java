@@ -22,7 +22,7 @@ public class Controller extends HttpServlet {
             throws IOException, ServletException {
 
         Object theAction = request.getAttribute("action");
-        String actionName = "test";
+        String actionName = "viewlogin";
 
         if (theAction != null) {
             System.out.println("[LOGGIN] theAction :" + theAction);

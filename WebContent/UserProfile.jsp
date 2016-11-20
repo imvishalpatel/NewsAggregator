@@ -76,7 +76,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
                             <ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
                                 <li><a href="UserProfile.jsp">Profile</a></li>
-                                <li><a href="change_password.html">Change Password</a></li>
+                                <li><a href="ChangePassword.jsp">Change Password</a></li>
                                 <li><a href="Controller?action=logout">Logout</a></li>
                             </ul>
                         </li>
@@ -95,7 +95,7 @@
                 <article class="col-md-8 maincontent" style="width: 1168px; margin-top: 51px;">
 
                     <ul class="nav nav-tabs" style="font-size:18px ">
-                        <li class="active"><a data-toggle="tab" href="#">User-Display-Name</a></li>
+                        <li class="active"><a data-toggle="tab" href="#">${sessionScope.LOGGED_IN_USER.firstName} ${sessionScope.LOGGED_IN_USER.lastName}</a></li>
                     </ul>
                     <br/>
                     <div class="tab-content">

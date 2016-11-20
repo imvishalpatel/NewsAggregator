@@ -19,7 +19,7 @@ import model.User;
  */
 public class ActionConfirmUser implements Action {
 
-    private String viewPage = "TestPage.jsp";
+    private String viewPage = "Login.jsp";
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -42,9 +42,9 @@ public class ActionConfirmUser implements Action {
                 if (u.isVerified() == false) {
                     u.setVerified(true);
                     System.out.println("LOGGING --> verify set to TRUE for " + u.getEmail() + "" + u.getId() + "" + u.getFirstName());
-                    request.setAttribute("confirmSucc", u.getUsername());
+                    request.setAttribute("confirmSucc", "Congratulation "+u.getFirstName()+", you are now member of vidico.");
                 } else {
-                    request.setAttribute("confirmAlready", "you are already verified");
+                    request.setAttribute("confirmErr", "You are already verified.");
                     System.out.println("LOGGING --> you are already verified " + u.getEmail() + " " + u.getId() + " " + u.getFirstName());
                 }
 

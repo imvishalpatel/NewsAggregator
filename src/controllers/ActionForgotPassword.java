@@ -54,6 +54,8 @@ public class ActionForgotPassword implements Action {
                     sb.append("Link : http://localhost:8084/NewsAggregator/Controller?action=resetpassword&key=" + foundUser.getId());
 
                     boolean mailStatus = Mail.send(u.getEmail(), "[IMPORTANT] Reset Password", sb.toString());
+                    errors.add("Check your mail regarding to reset your password");
+                    request.setAttribute("signupSucc", errors);
                 } else {
                     ArrayList<String> error = new ArrayList<>();
                     error.add("Umh! seems like you are anonymous. Please register yourself to access vidico community!");

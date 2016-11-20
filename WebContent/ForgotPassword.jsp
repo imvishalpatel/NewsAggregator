@@ -42,34 +42,9 @@
                 <div class="navbar-header">
                     <!-- Button for smallest screens -->
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="#"><img src="images/logo.png"  width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
+                    <a class="navbar-brand" href="#"><img src="assest/images/logo.png"  width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav pull-right">
-                        <div class="col-lg-6">
-                            <div class="input-group" style="padding-top: 6px; padding-left: 102px; padding-right: 0px; width: 426px; margin-left: -138px; height: 42px;">
-                                <input class="form-control" placeholder="Search" type="text">
-                                <span class="input-group-btn">
-                                    <form class="form-inline" method="post" action="#">
-                                        <button class="btn btn-default" type="submit" style="margin-top: -1px; height: 37px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -1px;">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </button>
-                                    </form>
-                                </span>
-                            </div>
-                        </div>
-                        <li><a href="index.html" style="padding-left: 39px;">Notification</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="private_dis_page.html">Private Discussion</a></li>
-                                <li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
-                                <li><a href="public_discussion_page.html">Public Discussion</a></li>							
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div><!--/.nav-collapse -->
+                
             </div>
         </div> 
         <!-- /.navbar -->
