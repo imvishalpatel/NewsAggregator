@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Herat Patel
  */
 public class ActionExclusivePost implements Action {
-    private String viewPage = "ExclusivePost.jsp";
+    private String viewPage = "";
     
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

@@ -13,7 +13,7 @@ import model.ExclusiveDiscussion;
  * @author Herat Patel
  */
 public class ActionAddExclusivePost implements Action{
-    private String viewPage = "ExclusivePost.jsp";
+    private String viewPage = "";
     
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
