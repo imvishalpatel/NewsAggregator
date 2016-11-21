@@ -4,6 +4,8 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="crawling.NewsModel"%>
+<%@page import="java.util.List"%>
 <%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.PublicDiscussion"%>
@@ -30,7 +32,46 @@
 	<link rel="stylesheet" href="assest/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assest/css/style.css">
 
-	
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+	<script>
+            function trial(){
+                $("mybutton").hide();
+            }
+            function upvote(username,pid)
+            {
+                //alert(pid+" "+username);
+                $.ajax({
+                    url: "/NewsAggregator/Controller?action=upvote&pid="+pid+"&username="+username,
+                    type: "get", //send it through get method
+                   // data:{ajaxid:4},
+                    success: function(response) {
+                    	obj = JSON.parse(response);
+                    	$("#upvote").text(obj.vote);			
+                    },
+                    error: function(xhr) {
+                      alert("Hey Sunil. \n "+xhr.text);
+                    }
+                  });
+            }
+            
+            function downvote(username,pid)
+            {
+                //alert(pid+" "+username);
+                $.ajax({
+                    url: "/NewsAggregator/Controller?action=downvote&pid="+pid+"&username="+username,
+                    type: "get", //send it through get method
+                   // data:{ajaxid:4},
+                    success: function(response) {
+                    	obj = JSON.parse(response);
+                    	$("#downvote").text(obj.vote);			
+                    },
+                    error: function(xhr) {
+                      alert("Hey Sunil. \n "+xhr.text);
+                    }
+                  });
+            }
+        </script>
 	
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -77,9 +118,11 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
-						<li><a href="profile_page.html">User Profile</a></li>
-						<li><a href="change_password.html">Change Password</a></li>
-						<li><a href="signIn_Page.html">Logout</a></li>
+                                            <li><a href="Controller?action=userprofile">User Profile</a></li>
+                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+						
+                                                  <li><a href="Controller?action=logout">Logout</a></li>
+						
 					</ul>
 				</li>
 				<!--<li class="active" style="margin-left: 29px;"><a class="btn" href="signin_Page.html">LOGOUT</a></li>-->
@@ -104,23 +147,28 @@
 					</ul>
 				</nav>
 			</ul>
-			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -59px;">
+			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -100px;">
 				<div class="row panel">
-					<div class="col-xs-10">
-						<h5>News Feed</h5>
+					<div class="col-xs-12">
+						<h3>News Feed</h3>
 					</div>
-					<div class="row panel">
-						<div class="col-xs-8">
+                                    <%List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
+if(newsList!=null){
+	
+		//System.out.println(nm);
+	
+%>
+<div class="row panel">
+						<div class="col-xs-10" >
+                                                    
 							<ul>
-								<a href="#"><li><h5>Education</h5></li></a>
-								<a href="#"><li><h5>Technology</h5></li></a>
-								<a href="#"><li><h5>Sports</h5></li></a>
-								<a href="#"><li><h5>Politics</h5></li></a>
-								<a href="#"><li><h5>Movies</h5></li></a>
+                                                            <%for(NewsModel nm : newsList){%>
+								<a href="Controller?action=publicpost&topic=<%out.println(nm.getTitle()+"&content="+nm.getDescription());%>"><li><h5><%out.println(nm.getTitle());%></h5></li></a>
+								<%}%>
 							</ul>
 						</div>
 					</div>
-					
+					<%}%>
 				</div>
 			</aside>
 			<article class="col-md-8 maincontent" style="margin-top: 44px;">
@@ -156,6 +204,7 @@
 						<%   out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%> Views</span>
 					  </h4>
 					  <div id="desc">
+                                             
 					  	<table border="0" id="main_discussion">
 							<tr>
 								<td>
@@ -178,9 +227,11 @@
 
 											<img src="" alt="User_Pic" style="margin-left: 421px;"/><a href="#" style="float:right;"><%out.println(pb.getUsername());%></a>
 										</h5>
-										<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><%out.println(pb.getUpVotes());%>&nbsp;
-										<a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><%out.println(pb.getDownVotes());%>&nbsp;
+                                                                        <input type="button" onclick="upvote( 'bgoyal2222' , '<%out.println(pb.getid());%>' )">
+                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick=" upvote( 'bgoyal2222' , '<%out.println(pb.getid());%>' )"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
+                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
 										<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>
+                                                                                <div id="time_post_1" style="color:#3399CC; float:right"><%out.println(pb.getDateString());%></div>
 									</p>
 								</td>
 							</tr>
@@ -213,7 +264,8 @@
 									<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer">Upvote</a>&nbsp;
 									<a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer">Downvote</a>&nbsp;&nbsp;
 									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;
-									<a href="#" id="cmt_on_cmt">add a comment</a>
+									<div id="time_post_1" style="color:#3399CC; ">3 weeks ago</div>
+                                                                        <a href="#" id="cmt_on_cmt">add a comment</a>
 									<hr/>
 								</td>
 							</tr>
@@ -318,5 +370,7 @@
 	<script src="assest/js/headroom.min.js"></script>
 	<script src="assest/js/jQuery.headroom.min.js"></script>
 	<script src="assest/js/custom.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
 </body>
 </html>

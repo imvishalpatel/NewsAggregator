@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,10 +60,15 @@ public class Discussion {
 	public String getContent() {
 		return content;
 	}
+        public HashMap<String,Integer> getVotes()
+        {
+            return this.votes;
+        }
 
 	public void setContent(String content) {
 		this.content = content;
 	}
+        
 
 	public int getUpVotes() {
 		int totalvotes=0;
@@ -107,7 +113,43 @@ public class Discussion {
 		return date.toString();
 	}
 
+         public String getDateString()
+         {
+             Date d1=new Date();
+             String st="";
+             long diff=d1.getTime()-this.date.getTime();
+            // System.out.print(diff /( 1000*60*60*24));
+             if(diff / 1000<60)
+             {
+                 st=(diff / 1000)+" Seconds Ago";
+             }
+             else if((diff / (1000*60)) <60)
+                     {
+                         st=(diff / (1000*60))+" Minutes Ago";
+                 
+                     }
+             else if((diff / (1000*60*60)) <24)
+                     {
+                         st=(diff / (1000*60*60))+" Hours Ago";
+                 
+                     }
+             else if((diff / (1000*60*60*24)) <7)
+                     {
+                         st=(diff / (1000*60*60*24))+" Days Ago";
+                 
+                     }
+            
+             else
+             {
+                 SimpleDateFormat ft = 
+      new SimpleDateFormat ("dd.MM.yyyy");
 
+                 st=ft.format(this.date);
+             }
+             
+    
+    return st;
+         }
 	public void setDate(Date date) {
 		this.date = date;
 	}

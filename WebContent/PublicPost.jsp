@@ -72,9 +72,10 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
-						<li><a href="profile_page.html">User Profile</a></li>
-						<li><a href="reset_pwd_page.html">Reset Password</a></li>
-						<li><a href="signIn_Page.html">Logout</a></li>
+						     <li><a href="Controller?action=userprofile">User Profile</a></li>
+                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+						
+                                                  <li><a href="Controller?action=logout">Logout</a></li>
 					</ul>
 				</li>
 				<!--<li class="active" style="margin-left: 29px;"><a class="btn" href="signin_Page.html">LOGOUT</a></li>-->
@@ -107,11 +108,19 @@
 				<div class="tab-content">
 					<div id="new_post" class="tab-pane fade in active">
 					  <div class="col-md-12">
+                                              <%
+                                                  String topic=" "; 
+                                                          
+                                                  String content=" "; 
+                                                  if((String)request.getAttribute("topic")!=null)
+                                                  {topic= (String)request.getAttribute("topic");
+                                                          content= (String)request.getAttribute("content");}
+                                              %>
 					  	<form action="Controller?action=addpublicpost" method="post" style="margin-top: 2px;">
 							<h3>Topic : </h3>
-							<input type="text" id="topic" name="topic" placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
-							<h3>Post : </h3>
-							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
+                                                        <input type="text" id="topic" name="topic" value="<%out.print(topic);%>"placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
+							<h3>Content : </h3>
+							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Description" style="border-radius: 5px;"><%out.print(content);%></textarea>
 							<h3>Select Category : </h3>
 							<input type="checkbox" name="cb" value="Political"> Political <br/>
 							<input type="checkbox" name="cb" value="Education"> Education  <br/>

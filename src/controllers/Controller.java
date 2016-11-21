@@ -31,11 +31,22 @@ public class Controller extends HttpServlet {
 
         Action action = getActionFromConfig(actionName);
 
-        String view = action.process(request, response);
+        //String view = action.process(request, response);
 
-        System.out.println("[LOGGIN] view : "+view);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-        dispatcher.forward(request, response);
+        //Code begins
+	String view = action.process(request, response);
+    
+	//Changes    
+    	if(!view.equals("JSON"))
+    	{
+    		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+    		dispatcher.forward(request, response);
+    	}
+	
+	//Function Ends	
+       // System.out.println("[LOGGIN] view : "+view);
+        //RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        //dispatcher.forward(request, response);
     }
 
     @Override

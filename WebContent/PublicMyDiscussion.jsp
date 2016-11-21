@@ -4,6 +4,8 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="crawling.NewsModel"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="model.PublicDiscussion"%>
@@ -77,9 +79,10 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
-						<li><a href="profile_page.html">User Profile</a></li>
-						<li><a href="reset_pwd_page.html">Reset Password</a></li>
-						<li><a href="signIn_Page.html">Logout</a></li>
+						     <li><a href="Controller?action=userprofile">User Profile</a></li>
+                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+						
+                                                  <li><a href="Controller?action=logout">Logout</a></li>
 					</ul>
 				</li>
 				<!--<li class="active" style="margin-left: 29px;"><a class="btn" href="signin_Page.html">LOGOUT</a></li>-->
@@ -104,23 +107,28 @@
 					</ul>
 				</nav>
 			</ul>
-			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -59px;">
+			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -100px;">
 				<div class="row panel">
-					<div class="col-xs-10">
-						<h5>News Feed</h5>
+					<div class="col-xs-12">
+						<h3>News Feed</h3>
 					</div>
-					<div class="row panel">
-						<div class="col-xs-8">
+                                    <%List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
+if(newsList!=null){
+	
+		//System.out.println(nm);
+	
+%>
+<div class="row panel">
+						<div class="col-xs-10" >
+                                                    
 							<ul>
-								<a href="#"><li><h5>Education</h5></li></a>
-								<a href="#"><li><h5>Technology</h5></li></a>
-								<a href="#"><li><h5>Sports</h5></li></a>
-								<a href="#"><li><h5>Politics</h5></li></a>
-								<a href="#"><li><h5>Movies</h5></li></a>
+                                                            <%for(NewsModel nm : newsList){%>
+								<a href="Controller?action=publicpost&topic=<%out.println(nm.getTitle()+"&content="+nm.getDescription());%>"><li><h5><%out.println(nm.getTitle());%></h5></li></a>
+								<%}%>
 							</ul>
 						</div>
 					</div>
-					
+					<%}%>
 				</div>
 			</aside>
 			<article class="col-md-8 maincontent" style="margin-top: 44px;">
@@ -151,10 +159,12 @@
         
 					<a href="Controller?action=publicdetailview&postid=<%out.println(pb.getid());%>" class="list-group-item">
 					  <h4 class="list-group-item-heading">
-						<%out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%></span>
+						<%out.println(pb.getTopic());%><span id="t1" class="badge" style="float:right;"><%out.println(pb.getViewCount());%> views</span>
 					  </h4>
 					  <p class="list-group-item-text">
-						<%out.println(pb.getContent());%><br/><br/>
+						<%out.println(pb.getContent());%>
+                                                <div id="time_post_1" style="color:#3399CC; float:left"><%out.println(pb.getDateString());%></div>
+                                                <br/><br/>
 								
 						<h5>
                                                     <% 

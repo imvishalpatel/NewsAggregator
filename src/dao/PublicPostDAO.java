@@ -41,9 +41,11 @@ public class PublicPostDAO {
              
         try{
         BasicDBObject whereQuery = new BasicDBObject();
+        BasicDBObject order = new BasicDBObject();
         DBObject oneDetails;
    // whereQuery.put("userId", "101");
-    DBCursor cursor = this.col.find();
+        order.put("date", 1);
+    DBCursor cursor = this.col.find().sort(order);
     while(cursor.hasNext()) {
         oneDetails=cursor.next();
         PublicDiscussion pb;
@@ -118,5 +120,17 @@ public class PublicPostDAO {
 //         
      
 //     }
+       public PublicDiscussion getPublicDiscussion(String pid){
+			
+        	PublicDiscussion pd=PublicPostConverter.toPublicDiscussion(col.findOne(new ObjectId(pid)));
+        
+        	return pd;	
+        }
+        
+        public void updatePublicDiscussion(PublicDiscussion pd){
+			
+        	DBObject obj=PublicPostConverter.toDBObject(pd);
+        	col.findAndModify(new BasicDBObject().append("_id", pd.getid()), obj);
+        }	
 
 }

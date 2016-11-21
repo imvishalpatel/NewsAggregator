@@ -68,7 +68,7 @@ public class ActionLogin implements Action {
                                 request.getSession().setAttribute("userType", foundUser.getType());
                                 // once user successfully authenticate return it to home
                                 // for tmp i have redireted to public post page
-                                return "PublicDetailedDiscussion.jsp";
+                                return "PublicPost.jsp";
                             } else {
                                 errors.add("You have not verified your email id yet.");
                                 request.setAttribute("loginErr", errors);

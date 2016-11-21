@@ -20,9 +20,14 @@ import java.util.LinkedList;
 public class ActionPublicPost implements Action {
     
       private String viewPage = "PublicPost.jsp";
-
+      String topic="  ",content="  ";
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
+         topic=request.getParameter("topic");
+         content=request.getParameter("content");
+         
+         request.setAttribute("topic", topic);
+         request.setAttribute("content", content);
          return viewPage;
     }
 
