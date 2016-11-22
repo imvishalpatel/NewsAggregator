@@ -33,7 +33,7 @@ public class MailService {
         map.put("buttonValue", buttonValue);
         map.put("buttonUrl", buttonUrl);
 
-        this.htmlText = readEmailFromHtml(GlobalConstants.SERVER_PATH, map);
+        this.htmlText = readEmailFromHtml("path of email template", map);
 
     }
 
