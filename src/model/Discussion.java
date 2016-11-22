@@ -84,7 +84,7 @@ public class Discussion {
 		if(v==-1)	
                     totalvotes+=v;
 		}
-		return totalvotes;
+		return Math.abs(totalvotes);
 	}
 
 	public void setVotes(HashMap<String, Integer> votes) {
@@ -98,6 +98,7 @@ public class Discussion {
 	public HashMap<String, Integer> getVoteList() {
 		return votes;
 	}
+        
 	
 	public Boolean getStatus() {
 		return status;

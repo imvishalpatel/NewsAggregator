@@ -11,6 +11,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.Comment;
 import model.PublicDiscussion;
 import org.bson.types.ObjectId;
@@ -81,6 +82,19 @@ public class PublicPostDAO {
          
           whereQuery.put("_id", new ObjectId(postid));
           newspam.put("isSpam", false);
+          BasicDBObject set = new BasicDBObject("$set", newspam);
+            this.col.update(whereQuery,set);
+       
+        
+    }
+    public void makeSpam(String postid)
+    {
+        
+         BasicDBObject whereQuery = new BasicDBObject();
+         BasicDBObject newspam = new BasicDBObject();
+         
+          whereQuery.put("_id", new ObjectId(postid));
+          newspam.put("isSpam", true);
           BasicDBObject set = new BasicDBObject("$set", newspam);
             this.col.update(whereQuery,set);
        
@@ -172,6 +186,24 @@ public class PublicPostDAO {
 //         
      
 //     }
+    public HashMap<String, PublicDiscussion> getAllPublicPosts(){
+        	
+        	//ArrayList<PublicDiscussion> list=null;
+        	HashMap<String, PublicDiscussion> list=null;
+        	DBCursor cursor=col.find();
+        	
+        	while(cursor.hasNext()){
+        		PublicDiscussion pd=PublicPostConverter.toPublicDiscussion(cursor.next());
+        		
+        		if(list==null){
+        			list=new HashMap<String,PublicDiscussion>();
+        		}
+        		
+        		list.put(pd.getid().toString(),pd);
+        	}
+        	
+        	return list;
+        }
        public PublicDiscussion getPublicDiscussion(String pid){
 			
         	PublicDiscussion pd=PublicPostConverter.toPublicDiscussion(col.findOne(new ObjectId(pid)));

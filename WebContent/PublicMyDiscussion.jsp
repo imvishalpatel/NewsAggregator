@@ -100,7 +100,7 @@
 			<ul class="nav navbar-nav pull-right" style="margin-top: 51px;">
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
-						<li><a href="new_discussion_page.html" class="current btn-theme btn-small">New Discussion</a></li>
+						<li><a href="Controller?action=publicpost" class="current btn-theme btn-small">New Discussion</a></li>
 						<li><a href="my_discussion_list.html" class="btn-theme btn-small">My Discussion</a></li>
 						<li><a href="detailed_discussion_list.html" class="btn-theme btn-small">Discussion List</a></li>
 						<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
@@ -136,6 +136,8 @@ if(newsList!=null){
                                     
             
         <%
+if(request.getAttribute("arpb")==null)
+            response.sendRedirect("Controller?action=publicmydiscussion");
             try{
              PublicDiscussion pb; 
             ArrayList<String> tag=new ArrayList<String>();
