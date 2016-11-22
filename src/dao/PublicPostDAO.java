@@ -43,9 +43,9 @@ public class PublicPostDAO {
         BasicDBObject whereQuery = new BasicDBObject();
         BasicDBObject order = new BasicDBObject();
         DBObject oneDetails;
-   // whereQuery.put("userId", "101");
-        order.put("date", 1);
-    DBCursor cursor = this.col.find().sort(order);
+   whereQuery.put("isSpam",false);
+        order.put("date", -1);
+    DBCursor cursor = this.col.find(whereQuery).sort(order);
     while(cursor.hasNext()) {
         oneDetails=cursor.next();
         PublicDiscussion pb;
@@ -63,8 +63,37 @@ public class PublicPostDAO {
         }
         
     return arpb;    }
+     public ArrayList<PublicDiscussion> showSpamPost()
+    { 
+        ArrayList<PublicDiscussion> arpb=new ArrayList<PublicDiscussion>();
+             
+        try{
+        BasicDBObject whereQuery = new BasicDBObject();
+        BasicDBObject order = new BasicDBObject();
+        DBObject oneDetails;
+   whereQuery.put("isSpam",true);
+       order.put("date", 1);
+    DBCursor cursor = this.col.find(whereQuery).sort(order);
+    while(cursor.hasNext()) {
+        oneDetails=cursor.next();
+        PublicDiscussion pb;
+     pb=PublicPostConverter.toPublicDiscussion(oneDetails);
+       
+        arpb.add(pb);
+  //      System.out.println(pb.getUsertId());
+//        System.out.println(pb.getTopic());
+//        System.out.println(pb.getContent());
+//        System.out.println(pb.getTagsString());
+    }
     
-     public PublicDiscussion showDetailPost(String postid)
+        }catch (Exception e) {
+            System.out.println(e.getMessage()+"dao");
+        }
+        
+    return arpb;    }
+   
+   
+    public PublicDiscussion showDetailPost(String postid)
     { 
          
              PublicDiscussion pb=null;

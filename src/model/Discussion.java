@@ -109,8 +109,8 @@ public class Discussion {
 	}
 
 
-	public String getDate() {
-		return date.toString();
+	public Date getDate() {
+		return this.date;
 	}
 
          public String getDateString()
