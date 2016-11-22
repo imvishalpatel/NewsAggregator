@@ -102,28 +102,12 @@
 					</ul>
 				</nav>
 			</ul>
-			<aside class="col-md-2 sidebar sidebar-left" style="margin-top: 94px; margin-left: -59px;">
-				<div class="row panel">
-					<div class="col-xs-10">
-						<h5>News Feed</h5>
-					</div>
-					<div class="row panel">
-						<div class="col-xs-8">
-							<ul>
-								<a href="#"><li><h5>Education</h5></li></a>
-								<a href="#"><li><h5>Technology</h5></li></a>
-								<a href="#"><li><h5>Sports</h5></li></a>
-								<a href="#"><li><h5>Politics</h5></li></a>
-								<a href="#"><li><h5>Movies</h5></li></a>
-							</ul>
-						</div>
-					</div>
-					
-				</div>
-			</aside>
+			
 			<article class="col-md-8 maincontent" style="margin-top: 44px;">
 			   <%
-            try{
+                               if(request.getAttribute("arpb")==null)
+            response.sendRedirect("Controller?action=viewspam");
+                               try{
              PublicDiscussion pb; 
             ArrayList<String> tag=new ArrayList<String>();
             ArrayList<PublicDiscussion> arpb = (ArrayList<PublicDiscussion>)request.getAttribute("arpb");
@@ -164,8 +148,8 @@
                                                     %>
 							<span id="t13" class="badge" style="float:right;"><%out.println(pb.getUsername());%></span>
 						</h5>
-					<button class="btn btn-xs" id="spam_org1"><a href="#" style="text-decoration:none;">Accept as spam</a></button>
-					<button class="btn btn-xs" id="spam_org2"><a href="#" style="text-decoration:none;">Reject as spam</a></button>
+					<button class="btn btn-xs" id="spam_org1"><a href="Controller?action=acceptspam&postid=<%out.print(pb.getid());%>" style="text-decoration:none;">Accept as spam</a></button>
+					<button class="btn btn-xs" id="spam_org2"><a href="Controller?action=rejectspam&postid=<%out.print(pb.getid());%>" style="text-decoration:none;">Reject as spam</a></button>
 				  </p>
 				</div>
         <%
@@ -177,26 +161,7 @@
         }
         %>
 			</article>
-			<aside class="col-md-2 sidebar sidebar-right" style="padding-left: 15px; margin-left: 44px;">
-				<div class="col-xs-10">
-						<h5>Trending Topics</h5>
-				</div>
-				<div class="row panel">
-					<div class="col-xs-12">
-						<ul>
-							<a href="#"><li><h5>Indian Army's sergical strike in PoK</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-						</ul>
-					</div>
-				</div>
-			</aside>
+			
 		</div>
 	</div>	<!-- /container -->
 	

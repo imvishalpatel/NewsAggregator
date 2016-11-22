@@ -63,6 +63,29 @@ public class PublicPostDAO {
         }
         
     return arpb;    }
+    
+    public void acceptSpam(String postid)
+    {
+        
+         BasicDBObject whereQuery = new BasicDBObject();
+          whereQuery.put("_id", new ObjectId(postid));
+            this.col.remove(whereQuery);
+       
+        
+    }
+    public void rejectSpam(String postid)
+    {
+        
+         BasicDBObject whereQuery = new BasicDBObject();
+         BasicDBObject newspam = new BasicDBObject();
+         
+          whereQuery.put("_id", new ObjectId(postid));
+          newspam.put("isSpam", false);
+          BasicDBObject set = new BasicDBObject("$set", newspam);
+            this.col.update(whereQuery,set);
+       
+        
+    }
      public ArrayList<PublicDiscussion> showSpamPost()
     { 
         ArrayList<PublicDiscussion> arpb=new ArrayList<PublicDiscussion>();
