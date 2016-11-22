@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
-import util.MailService;
+import util.Mail;
 
 /**
  *
@@ -25,6 +25,8 @@ public class ActionAddUser implements Action {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
+     
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -73,19 +75,22 @@ public class ActionAddUser implements Action {
                     userDao.creatUser(u);
                     System.out.println("User created successfully with id=" + u.getId()); // logs
 
-                    // content before button
-                    String firstMessage = "Verify yourself and be a member of vidico community.";
-                    // value you want to show i.e click here or reset password or confirm
-                    String buttonValue = "Confirm";
-                    // link for button
-                    String confirmationUrl = "http://localhost:8084/NewsAggregator/Controller?action=confirm&key=" + u.getId();
-                    // content after button
-                    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser."
-                            + "<br> " + confirmationUrl;
-                    
-                    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, confirmationUrl);
-                    
-                    boolean mailStatus = mailContent.sendMail(u.getEmail(), "Confirmatiom Mail");
+//                    // content before button
+//                    String firstMessage = "Verify yourself and be a member of vidico community.";
+//                    // value you want to show i.e click here or reset password or confirm
+//                    String buttonValue = "Confirm";
+//                    // link for button
+//                    String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+//                    String confirmationUrl = path + "/Controller?action=confirm&key=" + u.getId();
+//                    // content after button
+//                    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser."
+//                            + "<br> " + confirmationUrl;
+//                    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, confirmationUrl);
+                    String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+                    String mailContent = "verify yourself and be a member of vidico community."
+                            + "confirmation key : " + path + "/Controller?action=confirm&key=" + u.getId();
+                    mailContent += "\nClick on the link or paste in browser.";
+                    boolean mailStatus = Mail.send(u.getEmail(), "confirmation code", mailContent);
 
                     errors.add("Congratulations " + u.getFirstName() + ", your registration is complete");
                     errors.add("We have sent a mail on your email id " + u.getEmail() + " to verify your identity.");
@@ -102,7 +107,6 @@ public class ActionAddUser implements Action {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return viewPage;
     }
 

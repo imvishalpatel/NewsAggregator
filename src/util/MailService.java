@@ -5,6 +5,7 @@
  */
 package util;
 
+import Constants.GlobalConstants;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class MailService {
     private String buttonUrl;
     private Map<String, String> map;
     private String htmlText;
+
     public MailService(String message1, String message2, String buttonValue, String buttonUrl) {
         map = new HashMap<>();
         map.put("message1", message1);
@@ -31,8 +33,8 @@ public class MailService {
         map.put("buttonValue", buttonValue);
         map.put("buttonUrl", buttonUrl);
 
-        this.htmlText = readEmailFromHtml("C:\\Users\\vishal\\Documents\\NetBeansProjects\\NewsAggregator\\WebContent\\email.html",map);
-        
+        this.htmlText = readEmailFromHtml(GlobalConstants.SERVER_PATH, map);
+
     }
 
     //Method to replace the values for keys
@@ -73,5 +75,10 @@ public class MailService {
 
     public boolean sendMail(String to, String subject) {
         return Mail.send(to, subject, this.htmlText);
+    }
+    
+    public static void main(String[] args) {
+        MailService ms = new MailService("first","last","click","#");
+        ms.sendMail("vishal.6794@gmail.com", "test");
     }
 }

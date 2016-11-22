@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
-import util.MailService;
+import util.Mail;
 
 /**
  *
@@ -55,15 +55,18 @@ public class ActionAddNewPassword implements Action {
                     System.out.println("[LOGGING] -> Password has been changed for user=" + u.getEmail());
                     sb.append("Your password has been changed.");
 
-                    String firstMessage = "You have changed your password.";
-                    String buttonValue = "Login in your account";
-                    String buttonUrl = "http://localhost:8084/NewsAggregator/Controller?action=viewlogin";
-                    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser."
-                            + "<br> " + buttonUrl;
+                    boolean mailStatus = Mail.send(u.getEmail(), "[IMPORTANT] Changed Password", sb.toString());
+                    
+//
+//                    String firstMessage = "You have changed your password.";
+//                    String buttonValue = "Login in your account";
+//                    String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+//                    String buttonUrl = path + "/Controller?action=viewlogin";
+//                    String lastMessage = "If the link doesn't work please copy below link and paste it directly into your browser."
+//                            + "<br> " + buttonUrl;
 
-                    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, buttonUrl);
-                    boolean mailStatus = mailContent.sendMail(u.getEmail(), "[UPDATE] Password Changed");
-
+//                    MailService mailContent = new MailService(firstMessage, lastMessage, buttonValue, buttonUrl);
+//                    boolean mailStatus = mailContent.sendMail(u.getEmail(), "[UPDATE] Password Changed");
                     ArrayList<String> error = new ArrayList<>();
                     error.add("You have successfully changed your password. Login in using your new password");
                     request.setAttribute("signupSucc", error);
