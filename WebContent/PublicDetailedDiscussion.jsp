@@ -4,6 +4,7 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="trend.Trend"%>
 <%@page import="crawling.NewsModel"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Comment"%>
@@ -75,7 +76,7 @@
             function upvoteComment(username,pid,cid,lblup,lbldown)
             {
 //                alert("hello");
-                alert(pid+" "+username+" "+lblup);
+                //alert(pid+" "+username+" "+lblup);
                 $.ajax({
                     url: "/NewsAggregator/Controller?action=upvotecomment&pid="+pid+"&username="+username+"&cid="+cid,
                     type: "get", //send it through get method
@@ -96,7 +97,7 @@
             function downvoteComment(username,pid,cid,lblup,lbldown)
             {
 //                alert("hello");
-                alert(pid+" "+username+" "+lblup);
+                //alert(pid+" "+username+" "+lblup);
                 $.ajax({
                     url: "/NewsAggregator/Controller?action=downvotecomment&pid="+pid+"&username="+username+"&cid="+cid,
                     type: "get", //send it through get method
@@ -214,7 +215,7 @@
 					</div>
                                     <%
                                          if(request.getAttribute("pb")==null)
-            response.sendRedirect("Controller?action=publicdetailview&postid="+(String)request.getServletContext().getAttribute("postid"));
+            response.sendRedirect("Controller?action=publicdetailview&postid="+request.getAttribute("postid"));
                                         String username="bgoya2222";
                                         List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
 if(newsList!=null){
@@ -330,7 +331,7 @@ if(newsList!=null){
                                                                         <br/></br>
 <!--                                                                        comment vote-->
 <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"> </a> <label id='upvote<%=j%>'><%out.println(pb.getUpVotes());%></label>&nbsp;
-                                                                        <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor :pointer" onclick="downvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"></a><label id='downvote<%=j%>'></label>&nbsp;
+                                                                        <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor :pointer" onclick="downvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"></a><label id='downvote<%=j%>'><%=comm.get(j).getDownVotes()%></label>&nbsp;
 									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;
                                                                         <div id="time_post_1" style="color:#3399CC; "><%out.println(comm.get(j).getDateString());%></div>
                                                                         <a href="#" id="cmt_on_cmt">add a comment</a>
@@ -357,18 +358,25 @@ if(newsList!=null){
 				<div class="col-xs-10">
 						<h5>Trending Topics</h5>
 				</div>
+				
 				<div class="row panel">
+                                   <%
+                                   Trend tr=new Trend();
+                                    
+                                    ArrayList<PublicDiscussion> list=(ArrayList<PublicDiscussion>)request.getServletContext().getAttribute("trending");
+                                    
+                                   
+                                   %>
 					<div class="col-xs-12">
 						<ul>
-							<a href="#"><li><h5>Indian Army's sergical strike in PoK</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+                                                    <%
+                                                    for(PublicDiscussion pdn : list)
+                                                    {
+                                                        
+%>
+							<a href="Controller?action=publicdetailview&postid=<%out.println(pdn.getid());%>"><li><h5><%=pdn.getTopic()%></h5></li></a>
+						
+                                                        <%}%>
 						</ul>
 					</div>
 				</div>
