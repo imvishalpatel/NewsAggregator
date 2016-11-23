@@ -9,6 +9,9 @@ import model.Comment;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CommentConverter {
 	
@@ -28,6 +31,7 @@ public class CommentConverter {
         	i++;
         }
         object.put("votes", votes);
+        object.put("date", comment.getDate());
         
 		return object;
 	}
@@ -47,6 +51,13 @@ public class CommentConverter {
 		}
 		comment.setVotes(votes);
 		
+                DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+		try {
+                        comment.setDate(formatter.parse(object.get("date").toString()));
+		} 
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return comment;
 	}
 }

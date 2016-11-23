@@ -46,7 +46,7 @@ public class ActionDownvote implements Action{
 		
 		JSONObject json=null;
 		try {
-			json=new JSONObject("{'status':'success', 'vote':'"+pd.getUpVotes()+"'}");
+			json=new JSONObject("{'status':'success', 'upvote':'"+pd.getUpVotes()+"', 'downvote':'"+pd.getDownVotes()+"'}");
 			response.getWriter().write(json.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

@@ -4,6 +4,8 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="com.mongodb.MongoClient"%>
+<%@page import="trend.Trend"%>
 <%@page import="crawling.NewsModel"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -198,20 +200,26 @@ if(request.getAttribute("arpb")==null)
 			</article>
 			<aside class="col-md-2 sidebar sidebar-right" style="padding-left: 15px; margin-left: 44px;">
 				<div class="col-xs-10">
-						<h5>Trending Topics</h5>
+						<h3>Trending Topics</h3>
 				</div>
 				<div class="row panel">
+                                   <%
+                                   Trend tr=new Trend();
+                                    
+                                    ArrayList<PublicDiscussion> list=(ArrayList<PublicDiscussion>)request.getServletContext().getAttribute("trending");
+                                    
+                                   
+                                   %>
 					<div class="col-xs-12">
 						<ul>
-							<a href="#"><li><h5>Indian Army's sergical strike in PoK</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
-							<a href="#"><li><h5>PM reviews Indus water trety</h5></li></a>
-							<a href="#"><li><h5>Google unveils Pixel smartphones</h5></li></a>
+                                                    <%
+                                                    for(PublicDiscussion pdn : list)
+                                                    {
+                                                        
+%>
+							<a href="Controller?action=publicdetailview&postid=<%out.println(pdn.getid());%>"><li><h5><%=pdn.getTopic()%></h5></li></a>
+						
+                                                        <%}%>
 						</ul>
 					</div>
 				</div>

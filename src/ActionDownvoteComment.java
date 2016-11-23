@@ -13,8 +13,10 @@ import model.PublicDiscussion;
 import com.mongodb.MongoClient;
 
 import dao.PublicPostDAO;
+import java.util.ArrayList;
+import model.Comment;
 
-public class ActionUpvote implements Action{
+public class ActionDownvoteComment implements Action{
 
 	@Override
 	public String process(HttpServletRequest request,
@@ -25,27 +27,36 @@ public class ActionUpvote implements Action{
 		
 		String username=request.getAttribute("username").toString();
 		String pid=request.getAttribute("pid").toString();
+		String cid=request.getAttribute("cid").toString();
 		
 		PublicDiscussion pd=dao.getPublicDiscussion(pid);
 		
-		Integer i=pd.getVoteList().get(username);
+                ArrayList<Comment> comments=pd.getComments();
+                
+                Comment ref=null;
+                for(Comment comment : comments){
+                    if(comment.getId().equals(cid)){
+                        Integer i=comment.getVoteList().get(username);
+                        ref=comment;
+                        if(i==null){
+                            comment.votes(-1, username);
+                        }
 		
-		if(i==null){
-			pd.vote(username, 1);
-		}
+                        else{
+                            if(i==1){
+				comment.votes(0, username);
+                            }
+                            else{
+				comment.votes(-1, username);
+                            }
+                        }
+                    }
+                }
 		
-		else{
-			if(i==-1){
-				pd.vote(username, 0);
-			}
-			else{
-				pd.vote(username, 1);
-			}
-		}
 		
 		JSONObject json=null;
 		try {
-			json=new JSONObject("{'status':'success', 'upvote':'"+pd.getUpVotes()+"', 'downvote':'"+pd.getDownVotes()+"'}");
+			json=new JSONObject("{'status':'success', 'upvote':'"+ref.getUpVotes()+"', 'downvote':'"+ref.getDownVotes()+"'}");
 			response.getWriter().write(json.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

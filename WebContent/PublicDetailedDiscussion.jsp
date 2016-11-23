@@ -33,24 +33,23 @@
 	<link rel="stylesheet" href="assest/css/style.css">
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="script.js"></script>
+<!--        <script type="text/javascript" src="script.js"></script>-->
 	<script>
-            function trial(){
-                $("mybutton").hide();
-            }
             function upvote(username,pid)
             {
-                //alert(pid+" "+username);
+//                alert("hello");
+//                alert(pid+" "+username);
                 $.ajax({
                     url: "/NewsAggregator/Controller?action=upvote&pid="+pid+"&username="+username,
                     type: "get", //send it through get method
                    // data:{ajaxid:4},
                     success: function(response) {
                     	obj = JSON.parse(response);
-                    	$("#upvote").text(obj.vote);			
+                    	$("#upvote").text(obj.upvote);
+                        $("#downvote").text(obj.downvote);
                     },
                     error: function(xhr) {
-                      alert("Hey Sunil. \n "+xhr.text);
+                      alert("Hey  \n "+xhr.text);
                     }
                   });
             }
@@ -64,10 +63,71 @@
                    // data:{ajaxid:4},
                     success: function(response) {
                     	obj = JSON.parse(response);
-                    	$("#downvote").text(obj.vote);			
+                        $("#upvote").text(obj.upvote);
+                    	$("#downvote").text(obj.downvote);			
                     },
                     error: function(xhr) {
-                      alert("Hey Sunil. \n "+xhr.text);
+                      alert("Hey  \n "+xhr.text);
+                    }
+                  });
+            }
+            
+            function upvoteComment(username,pid,cid,lblup,lbldown)
+            {
+//                alert("hello");
+                alert(pid+" "+username+" "+lblup);
+                $.ajax({
+                    url: "/NewsAggregator/Controller?action=upvotecomment&pid="+pid+"&username="+username+"&cid="+cid,
+                    type: "get", //send it through get method
+                   // data:{ajaxid:4},
+                    success: function(response) {
+                    	obj = JSON.parse(response);
+//                        come back
+                        $("table#Comment").find("#"+lblup).text(obj.upvote);
+                        //alert(pid+" "+username+" "+lblup);
+                        $("table#Comment").find("#"+lbldown).text(obj.downvote);
+                    },
+                    error: function(xhr) {
+                      alert("Hey  \n "+xhr.text);
+                    }
+                  });
+            }
+            
+            function downvoteComment(username,pid,cid,lblup,lbldown)
+            {
+//                alert("hello");
+                alert(pid+" "+username+" "+lblup);
+                $.ajax({
+                    url: "/NewsAggregator/Controller?action=downvotecomment&pid="+pid+"&username="+username+"&cid="+cid,
+                    type: "get", //send it through get method
+                   // data:{ajaxid:4},
+                    success: function(response) {
+                    	obj = JSON.parse(response);
+//                        come back
+                        $("table#Comment").find("#"+lblup).text(obj.upvote);
+                        //alert(pid+" "+username+" "+lblup);
+                        $("table#Comment").find("#"+lbldown).text(obj.downvote);
+                    },
+                    error: function(xhr) {
+                      alert("Hey  \n "+xhr.text);
+                    }
+                  });
+            }
+            
+            function downvote(username,pid)
+            {
+                //alert(pid+" "+username);
+                $.ajax({
+                    url: "/NewsAggregator/Controller?action=downvote&pid="+pid+"&username="+username,
+                    type: "get", //send it through get method
+                   // data:{ajaxid:4},
+                    success: function(response) {
+                    	obj = JSON.parse(response);
+                        $("#upvote").text(obj.upvote);
+                    	$("#downvote").text(obj.downvote);			
+                    },
+                    error: function(xhr) {
+                      alert("Hey  \n "+xhr.text);
                     }
                   });
             }
@@ -152,7 +212,11 @@
 					<div class="col-xs-12">
 						<h3>News Feed</h3>
 					</div>
-                                    <%List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
+                                    <%
+                                         if(request.getAttribute("pb")==null)
+            response.sendRedirect("Controller?action=publicdetailview&postid="+(String)request.getServletContext().getAttribute("postid"));
+                                        String username="bgoya2222";
+                                        List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
 if(newsList!=null){
 	
 		//System.out.println(nm);
@@ -227,9 +291,10 @@ if(newsList!=null){
 
 											<img src="" alt="User_Pic" style="margin-left: 421px;"/><a href="#" style="float:right;"><%out.println(pb.getUsername());%></a>
 										</h5>
-                                                                        <input type="button" onclick="upvote( 'bgoyal2222' , '<%out.println(pb.getid());%>' )">
-                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick=" upvote( 'bgoyal2222' , '<%out.println(pb.getid());%>' )"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
-                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
+<!--                                                                                vote-->
+<!--                                                                        <button onclick="upvote('bgoyal2222' , '<%= pb.getid() %>')">rererere</button>-->
+                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvote('bgoyal2222' , '<%= pb.getid() %>')"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
+                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="downvote('bgoyal2222' , '<%= pb.getid() %>')"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
 										<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>
                                                                                 <div id="time_post_1" style="color:#3399CC; float:right"><%out.println(pb.getDateString());%></div>
 									</p>
@@ -238,15 +303,17 @@ if(newsList!=null){
 						</table><br/>
 						<h4><div id="cmt_title" style="color:#3399CC;">Comment Section</div></h4><hr/>
 						<div id="add_comment">
-							<form id="post_answer_textarea">
-								<textarea id="post-dis" cols="75" rows="4" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
-							</form>
+                                                    <form id="post_answer_textarea" method="post" action="Controller?action=addcomment&postid=<%= pb.getid() %>">
+								<textarea id="post-dis" name="comment"cols="75" rows="4" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
+							
 							<div style="margin-top: 50px; margin-left: -13px;">
-								<button id="btn_post" class="btn btn-info" style="padding-left: 40px; margin-left: 13px; padding-top: 10px; margin-top: -66px;">Post Comment</button>
-							</div>
+								<button name="btn_comment"type="submit"id="btn_post" class="btn btn-info" style="padding-left: 40px; margin-left: 13px; padding-top: 10px; margin-top: -66px;">Post Comment</button>
+                                                                <input type="hidden" name="username" value="<%out.print(username);%>"  
+                                                        </div>
+                                                                </form>
 						</div>													
 						<table border="0" id="Comment" width="800">
-							
+					
                                                             <%ArrayList<Comment> comm=pb.getComments();
                                                             
                                                             
@@ -260,11 +327,12 @@ if(newsList!=null){
                                                                     <%out.println(comm.get(j).getComment());
                                                                         %> - <a href="#"><%out.println(comm.get(j).getUserName());
                                                                         %></a>
-									<br/>
-									<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer">Upvote</a>&nbsp;
-									<a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer">Downvote</a>&nbsp;&nbsp;
+                                                                        <br/></br>
+<!--                                                                        comment vote-->
+<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"> </a> <label id='upvote<%=j%>'><%out.println(pb.getUpVotes());%></label>&nbsp;
+                                                                        <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor :pointer" onclick="downvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"></a><label id='downvote<%=j%>'></label>&nbsp;
 									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;
-									<div id="time_post_1" style="color:#3399CC; ">3 weeks ago</div>
+                                                                        <div id="time_post_1" style="color:#3399CC; "><%out.println(comm.get(j).getDateString());%></div>
                                                                         <a href="#" id="cmt_on_cmt">add a comment</a>
 									<hr/>
 								</td>
