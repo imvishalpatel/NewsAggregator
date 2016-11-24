@@ -4,6 +4,8 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="model.User"%>
+<%@page import="Constants.GlobalConstants"%>
 <%@page import="trend.Trend"%>
 <%@page import="crawling.NewsModel"%>
 <%@page import="java.util.List"%>
@@ -28,7 +30,7 @@
 	<link rel="stylesheet" href="assest/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assest/css/font-awesome.css">
 	<link rel="stylesheet" href="assest/css/font-awesome.min.css">
-<a href="detailed_discussion_list.html"></a>
+
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assest/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assest/css/style.css">
@@ -172,7 +174,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="private_dis_page.html">Private Discussion</a></li>
 						<li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
-						<li><a href="public_discussion_page.html">Public Discussion</a></li>							
+						<li><a href="Controller?action=publiclist">Public Discussion</a></li>							
 					</ul>
 				</li>
 				
@@ -201,9 +203,9 @@
 			<ul class="nav navbar-nav pull-right" style="margin-top: 51px;">
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
-						<li><a href="new_discussion_page.html" class="btn-theme btn-small">New Discussion</a></li>
-						<li><a href="my_discussion_list.html" class="btn-theme btn-small">My Discussion</a></li>
-						<li><a href="detailed_discussion_list.html" class="current btn-theme btn-small">Discussion List</a></li>
+						<li><a href="Controller?action=publicpost" class="btn-theme btn-small">New Discussion</a></li>
+						<li><a href="Controller?action=publiclist" class="btn-theme btn-small">Discussion List</a></li>
+						<li><a href="Controller?action=publicmydiscussion" class="btn-theme btn-small">My Discussion</a></li>
 						<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
 					</ul>
 				</nav>
@@ -214,9 +216,10 @@
 						<h3>News Feed</h3>
 					</div>
                                     <%
+                                         String username=((User)request.getSession().getAttribute(GlobalConstants.LOGGED_IN_USER)).getUsername();
                                          if(request.getAttribute("pb")==null)
-            response.sendRedirect("Controller?action=publicdetailview&postid="+request.getAttribute("postid"));
-                                        String username="bgoya2222";
+            response.sendRedirect("Controller?action=publicdetailview&postid="+request.getAttribute("postid")+"&uname="+username);
+                                       
                                         List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
 if(newsList!=null){
 	
@@ -294,9 +297,9 @@ if(newsList!=null){
 										</h5>
 <!--                                                                                vote-->
 <!--                                                                        <button onclick="upvote('bgoyal2222' , '<%= pb.getid() %>')">rererere</button>-->
-                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvote('bgoyal2222' , '<%= pb.getid() %>')"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
-                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="downvote('bgoyal2222' , '<%= pb.getid() %>')"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
-										<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>
+                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvote('<%=username%>' , '<%= pb.getid() %>')"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
+                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="downvote('<%=username%>' , '<%= pb.getid() %>')"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
+										<a href="Controller?action=setspam&postid=<%=pb.getid()%>" id="spam_org1">Mark as spam</a>
                                                                                 <div id="time_post_1" style="color:#3399CC; float:right"><%out.println(pb.getDateString());%></div>
 									</p>
 								</td>
@@ -330,11 +333,11 @@ if(newsList!=null){
                                                                         %></a>
                                                                         <br/></br>
 <!--                                                                        comment vote-->
-<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"> </a> <label id='upvote<%=j%>'><%out.println(pb.getUpVotes());%></label>&nbsp;
-                                                                        <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor :pointer" onclick="downvoteComment('bgoyal2222' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"></a><label id='downvote<%=j%>'><%=comm.get(j).getDownVotes()%></label>&nbsp;
-									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;
+<a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvoteComment('<%=username%>' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"> </a> <label id='upvote<%=j%>'><%out.println(comm.get(j).getUpVotes());%></label>&nbsp;
+                                                                        <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor :pointer" onclick="downvoteComment('<%=username%>' , '<%= pb.getid() %>', '<%=comm.get(j).getId()%>', 'upvote<%=j%>', 'downvote<%=j%>' )"></a><label id='downvote<%=j%>'><%=comm.get(j).getDownVotes()%></label>&nbsp;
+<!--									<a href="my_discussion_list.html" id="spam_org1">Mark as spam</a>&nbsp;&nbsp;&nbsp;-->
                                                                         <div id="time_post_1" style="color:#3399CC; "><%out.println(comm.get(j).getDateString());%></div>
-                                                                        <a href="#" id="cmt_on_cmt">add a comment</a>
+<!--                                                                        <a href="#" id="cmt_on_cmt">add a comment</a>-->
 									<hr/>
 								</td>
 							</tr>
@@ -374,7 +377,7 @@ if(newsList!=null){
                                                     {
                                                         
 %>
-							<a href="Controller?action=publicdetailview&postid=<%out.println(pdn.getid());%>"><li><h5><%=pdn.getTopic()%></h5></li></a>
+							<a href="Controller?action=publicdetailview&postid=<%out.println(pdn.getid()+"&uname="+username);%>"><li><h5><%=pdn.getTopic()%></h5></li></a>
 						
                                                         <%}%>
 						</ul>

@@ -29,7 +29,12 @@ public class PublicDiscussion extends Discussion{
 		
 		this.category=null;
 	}
-
+            
+        public void addview(String id)
+        {
+            if(!this.userlist.contains(id))
+            this.userlist.add(id);
+        }
 	public ArrayList<String> getUserlist() {
 		return userlist;
 	}

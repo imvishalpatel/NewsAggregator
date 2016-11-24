@@ -4,6 +4,8 @@
     Author     : BHAVESH GOYAL
 --%>
 
+<%@page import="Constants.GlobalConstants"%>
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +67,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="private_dis_page.html">Private Discussion</a></li>
 						<li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
-						<li><a href="public_discussion_page.html">Public Discussion</a></li>							
+						<li><a href="Controller?action=publiclist">Public Discussion</a></li>							
 					</ul>
 				</li>
 				
@@ -93,9 +95,9 @@
 			<ul class="nav navbar-nav pull-right" style="margin-top: 51px;">
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
-						<li><a href="Controller?action=publicmydiscussion" class="current btn-theme btn-small">My Discussion</a></li>
-						<li><a href="Controller?action=publicdetailview" class="btn-theme btn-small">Discussion List</a></li>
-						<li><a href="#" class="btn-theme btn-small">Most Viewed Post</a></li>
+						<li><a href="#" class="current btn-theme btn-small">New Discussion</a></li>
+						<li><a href="Controller?action=publiclist" class="btn-theme btn-small">Discussion List</a></li>
+						<li><a href="Controller?action=publicmydiscussion" class="btn-theme btn-small">My Discussion</a></li>
 						<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
 					</ul>
 				</nav>
@@ -110,7 +112,8 @@
 					  <div class="col-md-12">
                                               <%
                                                   String topic=" "; 
-                                                          
+                                                          String username=((User)request.getSession().getAttribute(GlobalConstants.LOGGED_IN_USER)).getUsername();
+
                                                   String content=" "; 
                                                   if((String)request.getAttribute("topic")!=null)
                                                   {topic= (String)request.getAttribute("topic");
@@ -119,7 +122,8 @@
 					  	<form action="Controller?action=addpublicpost" method="post" style="margin-top: 2px;">
 							<h3>Topic : </h3>
                                                         <input type="text" id="topic" name="topic" value="<%out.print(topic);%>"placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
-							<h3>Content : </h3>
+                                                        <input name="uname"type="hidden" value="<%=username%>"> 
+                                                        <h3>Content : </h3>
 							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Description" style="border-radius: 5px;"><%out.print(content);%></textarea>
 							<h3>Select Category : </h3>
 							<input type="checkbox" name="cb" value="Political"> Political <br/>

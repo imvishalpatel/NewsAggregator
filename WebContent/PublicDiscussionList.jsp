@@ -105,10 +105,10 @@
 				<nav id="filter" class="col-md-12 text-center">
 					<ul>
 						<li><a href="Controller?action=publicpost" class="btn-theme btn-small">New Discussion</a></li>
-						<li><a href="Controller?action=publiclist" class="btn-theme btn-small">Discussion List</a></li>
-						<li><a href="#" class="current btn-theme btn-small">My Discussion</a></li>
+						<li><a href="#" class="current btn-theme btn-small">Discussion List</a></li>
+					<li><a href="Controller?action=publicmydiscussion" class="btn-theme btn-small">My Discussion</a></li>
 						
-                                                <!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
+                                                	<!--<li><a href="#" class="btn-theme btn-small">Print</a></li>-->
 					</ul>
 				</nav>
 			</ul>
@@ -145,7 +145,7 @@ String username=((User)request.getSession().getAttribute(GlobalConstants.LOGGED_
                                         
 
 if(request.getAttribute("arpb")==null)
-            response.sendRedirect("Controller?action=publicmydiscussion");
+            response.sendRedirect("Controller?action=publiclist");
             try{
              PublicDiscussion pb; 
             ArrayList<String> tag=new ArrayList<String>();
@@ -153,8 +153,8 @@ if(request.getAttribute("arpb")==null)
            for(int i=0;i<arpb.size();i++)    
             {
                 pb=arpb.get(i);
-                if(pb.getUsername().equals(username))
-                {
+//                if(pb.getUsertId().equals("bgoyal2222"))
+//                {
                  
                  
 //                 out.println( pb.getUsertId());
@@ -194,7 +194,7 @@ if(request.getAttribute("arpb")==null)
 					  </p>
 					</a>
 					<%
-                                                        }
+                                                     //   }
             }   
             }
             catch (Exception e) {

@@ -17,11 +17,11 @@ import model.PublicDiscussion;
  * @author BHAVESH GOYAL
  */
 public class ActionAddPublicPost implements Action{
-          private String viewPage = "PublicPost.jsp";
+          private String viewPage = "PublicDiscussionList.jsp";
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-        String userId ="bgoyal2222";
+        String userId =request.getParameter("uname");
         String topic = request.getParameter("topic");
         
         String content = request.getParameter("content");

@@ -190,7 +190,9 @@ public class PublicPostDAO {
         	
         	//ArrayList<PublicDiscussion> list=null;
         	HashMap<String, PublicDiscussion> list=null;
-        	DBCursor cursor=col.find();
+                        BasicDBObject whereQuery = new BasicDBObject();
+ whereQuery.put("isSpam",false);
+        	DBCursor cursor=col.find(whereQuery);
         	
         	while(cursor.hasNext()){
         		PublicDiscussion pd=PublicPostConverter.toPublicDiscussion(cursor.next());
