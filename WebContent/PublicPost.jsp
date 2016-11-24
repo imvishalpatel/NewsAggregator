@@ -28,6 +28,52 @@
 	<link rel="stylesheet" href="assest/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assest/css/style.css">
 
+	<script type="text/javascript">
+		function checkTopic(tp)
+		{
+			
+			if(document.getElementById("topic").value.length < 5 || document.getElementById("topic").value.length > 100)
+			{
+				document.getElementById("topic").value = "";
+				document.getElementById("topic").style.borderColor = "red";
+				document.getElementById("topic").focus();
+			}
+			else
+			{
+				document.getElementById("topic").style.borderColor = "green";
+				document.getElementById("post-dis").focus();
+			}
+		}
+		function checkEmptyTopic()
+		{
+			if(document.getElementById("topic").value == "")
+			{
+				document.getElementById("topic").style.borderColor = "red";
+				document.getElementById("topic").focus();
+			}
+			else
+			{
+				document.getElementById("topic").style.borderColor = "green";
+				document.getElementById("post-dis").focus();
+			}
+		}
+		function checkPost(post_tp)
+		{
+			if(document.getElementById("post-dis").value.length < 15 || document.getElementById("post-dis").value.length > 255)
+			{
+				document.getElementById("post-dis").value = "";
+				document.getElementById("post-dis").style.borderColor = "red";
+				document.getElementById("post-dis").focus();
+			}
+			else
+			{
+				document.getElementById("post-dis").style.borderColor = "green";
+				
+			}
+		}
+	
+	</script>
+	
 	
 	
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
