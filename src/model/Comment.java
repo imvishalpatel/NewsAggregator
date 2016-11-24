@@ -74,7 +74,20 @@ public class Comment {
 	public String getId() {
 		return id;
 	}
-
+public int getVoteValue(String username)
+{
+    if(this.votes.get(username)!=null)
+    {
+    if(this.votes.get(username)==1)
+        return 1;
+    else if(this.votes.get(username)==-1)
+        return -1;
+    else
+        return 0;
+     
+}else
+        return 0;
+}
 	public void setId(String id) {
 		this.id = id;
 	}
