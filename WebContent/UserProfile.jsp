@@ -150,7 +150,7 @@
                                                 Username : 
                                             </td>
                                             <td>
-                                                <input type="text" name="username" value="${sessionScope.LOGGED_IN_USER.username}" style="width:200px;" id="uname_1">
+                                                <input type="text" name="username" value="${sessionScope.LOGGED_IN_USER.username}" style="width:200px;" id="uname_1"readonly>
                                             </td>
                                         </tr>
                                         <tr>
@@ -158,7 +158,7 @@
                                                 Email
                                             </td>
                                             <td>
-                                                <input type="text" id="mail_id_1" name="email" value="${sessionScope.LOGGED_IN_USER.email}" style="width:200px;">
+                                                <input type="text" id="mail_id_1" name="email" value="${sessionScope.LOGGED_IN_USER.email}" style="width:200px;"readonly>
                                             </td>
                                         </tr>
                                        

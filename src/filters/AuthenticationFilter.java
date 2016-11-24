@@ -1,5 +1,6 @@
 package filters;
 
+import Constants.GlobalConstants;
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import model.User;
 
 public class AuthenticationFilter implements Filter{
 
@@ -23,10 +25,14 @@ public class AuthenticationFilter implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("Authentication Filter");
-		Object username=((HttpServletRequest)request).getSession().getAttribute("username");
+                Object user=(User)((HttpServletRequest)request).getSession().getAttribute(GlobalConstants.LOGGED_IN_USER);
+               
+                       
+  
+		//Object username=((HttpServletRequest)request).getSession().getAttribute("username");
 		Object action=((HttpServletRequest)request).getAttribute("action");
 		
-		if(username==null){
+		if(user==null){
 			
 			System.out.println("username is null");
 			if(action!=null)

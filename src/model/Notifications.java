@@ -7,10 +7,10 @@ package model;
 
 /**
  *
- * @author vishal
+ * @author Gaurav
  */
-class Notification {
-
+public class Notifications {
+    
     private int id;
     private int type;
     private String text;
@@ -48,6 +48,10 @@ class Notification {
     public void setIsSeen(boolean isSeen) {
         this.isSeen = isSeen;
     }
+    
+    public boolean getIsSeen(){
+        return this.isSeen;
+    }
 
     public String getReference() {
         return reference;
@@ -63,4 +67,5 @@ class Notification {
     }
     
     
+
 }
