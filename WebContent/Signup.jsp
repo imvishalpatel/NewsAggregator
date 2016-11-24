@@ -122,9 +122,16 @@
             function validateUname(unameField)
             {
                 //alert(unameField.length);
-                if (document.getElementById("uname").value.length > 5 || document.getElementById("uname").value.length < 21)
+                var reg = /^[a-zA-Z0-9]+$/;
+                if (document.getElementById("uname").value.length < 5 || document.getElementById("uname").value.length > 21)
                 {
-                    var reg = /^[a-zA-Z0-9]+$/;
+                    alert("Invalid User Name");
+                    document.getElementById("uname").value = "";
+                    document.getElementById("uname").style.borderColor = "red";
+                    document.getElementById("uname").focus();
+                } else
+                {
+
                     if (reg.test(document.getElementById("uname").value) == false)
                     {
                         alert("Invalid User Name");
@@ -135,8 +142,6 @@
                     {
                         document.getElementById("uname").style.borderColor = "green";
                     }
-                } else
-                {
                 }
             }
             function validateEmail(emailField)
@@ -291,22 +296,22 @@
                                     <input type="hidden" name="action" value="adduser" />
                                     <div class="top-margin">
                                         <label>First Name</label>
-                                        
-                                        <input type="text" class="form-control" name="firstname" id="fname" value="${requestScope.firstname}" onKeyPress="return onlyAlphabets(event,this);" onChange="checkFname(this.id);">
+
+                                        <input type="text" class="form-control" name="firstname" id="fname" value="${requestScope.firstname}" onKeyPress="return onlyAlphabets(event, this);" onChange="checkFname(this.id);">
                                     </div>
                                     <div class="top-margin">
                                         <label>Last Name</label>
-                                        
-                                        <input type="text" class="form-control" name="lastname" value="${requestScope.lastname}" id="lname" onKeyPress="return onlyAlphabets(event,this);" onFocus="checkEmptyFname();" onChange="checkLname(this.id);">
+
+                                        <input type="text" class="form-control" name="lastname" value="${requestScope.lastname}" id="lname" onKeyPress="return onlyAlphabets(event, this);" onFocus="checkEmptyFname();" onChange="checkLname(this.id);">
                                     </div>
                                     <div class="top-margin">
                                         <label>Username <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="username" value="${requestScope.username}" id="uname" maxlength="21" onFocus="checkEmptyLname();" onChange="validateUname(this.value);" required>
-                                        
+
                                     </div>
                                     <div class="top-margin">
                                         <label>Email Address <span class="text-danger">*</span></label>
-                                        
+
                                         <input type="text" class="form-control" name="email" value="${requestScope.email}" id="eid" maxlength="51" onFocus="checkEmptyUname();" onchange="validateEmail(this.value)" required>
                                     </div>
 
@@ -314,11 +319,11 @@
                                         <div class="col-sm-6">
                                             <label>Password <span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" name="password" id="pwd" onchange="validatePassWord();" required>
-                                            
+
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Confirm Password <span class="text-danger">*</span></label>
-                                            
+
                                             <input type="password" class="form-control" id="cpwd" onFocus="checkEmptyPwd();" onchange="matchPass();" required>
                                         </div>
                                     </div>
