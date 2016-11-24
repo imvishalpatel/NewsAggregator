@@ -35,7 +35,7 @@
                 //alert(document.getElementById("fname").value.length);
                 if (document.getElementById("fname").value.length < 3 || document.getElementById("fname").value.length > 20)
                 {
-                    //document.getElementById("fname").value = "";
+                    document.getElementById("fname").value = "";
                     document.getElementById("fname").style.borderColor = "red";
                     document.getElementById("fname").focus();
                 } else
@@ -63,7 +63,7 @@
                 //alert(document.getElementById("lname").value.length);
                 if (document.getElementById("lname").value.length < 4 || document.getElementById("lname").value.length > 20)
                 {
-                    //document.getElementById("lname").value = "";
+                    document.getElementById("lname").value = "";
                     document.getElementById("lname").style.borderColor = "red";
                     document.getElementById("lname").focus();
                 } else
@@ -297,12 +297,12 @@
                                     <div class="top-margin">
                                         <label>First Name</label>
 
-                                        <input type="text" class="form-control" name="firstname" id="fname" value="${requestScope.firstname}" onKeyPress="return onlyAlphabets(event, this);" onChange="checkFname(this.id);">
+                                        <input type="text" class="form-control" name="firstname" id="fname" value="${requestScope.firstname}" onKeyPress="return onlyAlphabets(event, this);" onChange="checkFname(this.value);">
                                     </div>
                                     <div class="top-margin">
                                         <label>Last Name</label>
 
-                                        <input type="text" class="form-control" name="lastname" value="${requestScope.lastname}" id="lname" onKeyPress="return onlyAlphabets(event, this);" onFocus="checkEmptyFname();" onChange="checkLname(this.id);">
+                                        <input type="text" class="form-control" name="lastname" value="${requestScope.lastname}" id="lname" onKeyPress="return onlyAlphabets(event, this);" onFocus="checkEmptyFname();" onChange="checkLname(this.value);">
                                     </div>
                                     <div class="top-margin">
                                         <label>Username <span class="text-danger">*</span></label>

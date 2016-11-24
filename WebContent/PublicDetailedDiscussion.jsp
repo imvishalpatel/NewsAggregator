@@ -136,6 +136,20 @@
             }
         </script>
 	
+        <style>
+            .upvote
+{
+   text-decoration:none;
+   cursor:pointer;
+   color:#66CC33;
+}
+.downvote
+{
+   text-decoration:none;
+   cursor:pointer;
+   color:#FF3300;
+}
+            </style>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
@@ -157,15 +171,14 @@
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
 					<div class="col-lg-6" style="margin-top: 10px;">
 					<div class="input-group">
-						<input class="form-control" placeholder="Search" type="text">
-							<span class="input-group-btn">
-								<form class="form-inline" method="post" action="#">
-								<button class="btn btn-default" type="submit" style="margin-top: -1px; height: 37px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -1px;">
-									<i class="fa fa-search" aria-hidden="true"></i>
-								</button>
-								</form>
-							</span>
-					</div>
+                                            <form action="Controller" method="post">
+                                                <input type="hidden" name="action" value="search"/>
+						  <input name="searchvalue" type="text" class="form-control" placeholder="Search for..." style="width: 297px;">
+						  <span class="input-group-btn">
+							<button class="btn btn-secondary" type="submit" style="margin-top: 1px; height: 32px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -81px; width: 84px; border-bottom-width: 1px;">Search</button>
+						  </span>
+                                            </form>
+						</div>
 				</div>
 				
 				<li><a href="index.html" style="padding-left: 39px;">Notification</a></li>
@@ -293,12 +306,12 @@ if(newsList!=null){
                                                     
                                                     %>
 
-											<img src="" alt="User_Pic" style="margin-left: 421px;"/><a href="#" style="float:right;"><%out.println(pb.getUsername());%></a>
+                                                    <img src="assest/images/default_profile.png" alt="User_Pic" width="30" height="25"style="margin-left: 421px;"/><a href="#" style="float:right;"><%out.println(pb.getUsername());%></a>
 										</h5>
 <!--                                                                                vote-->
 <!--                                                                        <button onclick="upvote('bgoyal2222' , '<%= pb.getid() %>')">rererere</button>-->
-                                                                                <a class="fa fa-thumbs-up" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="upvote('<%=username%>' , '<%= pb.getid() %>')"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
-                                                                                <a class="fa fa-thumbs-down" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="downvote('<%=username%>' , '<%= pb.getid() %>')"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
+<a  class="<%if(pb.getVoteValue(username)==1)out.print("fa fa-thumbs-up upvote");else out.print("fa fa-thumbs-up");%>" aria-hidden="true" style="text-decoration:none; cursor:pointer;" onclick="upvote('<%=username%>' , '<%= pb.getid() %>')"> </a> <label id='upvote'><%out.println(pb.getUpVotes());%></label>&nbsp;
+                                                                                <a class="<%if(pb.getVoteValue(username)==-1)out.print("fa fa-thumbs-down downvote");else out.print("fa fa-thumbs-down");%>" aria-hidden="true" style="text-decoration:none; cursor:pointer" onclick="downvote('<%=username%>' , '<%= pb.getid() %>')"></a><label id="downvote"> <%out.println(pb.getDownVotes());%> </label>&nbsp;
 										<a href="Controller?action=setspam&postid=<%=pb.getid()%>" id="spam_org1">Mark as spam</a>
                                                                                 <div id="time_post_1" style="color:#3399CC; float:right"><%out.println(pb.getDateString());%></div>
 									</p>
@@ -408,9 +421,9 @@ if(newsList!=null){
 						<h3 class="panel-title">Follow Us</h3>
 						<div class="panel-body">
 							<p class="follow-me-icons">
-								<a href="signin_Page.html"><i class="fa fa-twitter fa-2"></i></a>
-								<a href="signin_Page.html"><i class="fa fa-github fa-2"></i></a>
-								<a href="signin_Page.html"><i class="fa fa-facebook fa-2"></i></a>
+								<a href="#"><i class="fa fa-twitter fa-2"></i></a>
+								<a href="#"><i class="fa fa-github fa-2"></i></a>
+								<a href="#"><i class="fa fa-facebook fa-2"></i></a>
 								
 							</p>	
 						</div>

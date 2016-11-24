@@ -96,15 +96,14 @@
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
 					<div class="col-lg-6" style="margin-top: 10px;">
 					<div class="input-group">
-						<input class="form-control" placeholder="Search" type="text">
-							<span class="input-group-btn">
-								<form class="form-inline" method="post" action="#">
-								<button class="btn btn-default" type="submit" style="margin-top: -1px; height: 37px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -1px;">
-									<i class="fa fa-search" aria-hidden="true"></i>
-								</button>
-								</form>
-							</span>
-					</div>
+                                            <form action="Controller" method="post">
+                                                <input type="hidden" name="action" value="search"/>
+						  <input name="searchvalue" type="text" class="form-control" placeholder="Search for..." style="width: 297px;">
+						  <span class="input-group-btn">
+							<button class="btn btn-secondary" type="submit" style="margin-top: 1px; height: 32px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -81px; width: 84px; border-bottom-width: 1px;">Search</button>
+						  </span>
+                                            </form>
+						</div>
 				</div>
 				
 				<li><a href="index.html" style="padding-left: 39px;">Notification</a></li>

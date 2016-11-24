@@ -69,7 +69,20 @@ public class Discussion {
 		this.content = content;
 	}
         
-
+public int getVoteValue(String username)
+{
+    if(this.votes.get(username)!=null)
+    {
+    if(this.votes.get(username)==1)
+        return 1;
+    else if(this.votes.get(username)==-1)
+        return -1;
+    else
+        return 0;
+     
+}else
+        return 0;
+}
 	public int getUpVotes() {
 		int totalvotes=0;
 		for(Integer v : votes.values()){

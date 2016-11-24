@@ -4,6 +4,8 @@
     Author     : pritesh
 --%>
 
+<%@page import="Constants.GlobalConstants"%>
+<%@page import="model.PublicDiscussion"%>
 <%@page import="model.Discussion"%>
 <%@page import="java.util.List"%>
 <%@page import="model.User"%>
@@ -43,21 +45,20 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="images/logo.png"  width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
+				<a class="navbar-brand" href="#"><img src="assest/images/logo.png"  width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
 					<div class="col-lg-6" style="margin-top: 10px;">
 					<div class="input-group">
-						<input class="form-control" placeholder="Search" type="text">
-							<span class="input-group-btn">
-								<form class="form-inline" method="post" action="#">
-								<button class="btn btn-default" type="submit" style="margin-top: -1px; height: 37px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -1px;">
-									<i class="fa fa-search" aria-hidden="true"></i>
-								</button>
-								</form>
-							</span>
-					</div>
+                                            <form action="Controller" method="post">
+                                                <input type="hidden" name="action" value="search"/>
+						  <input name="searchvalue" type="text" class="form-control" placeholder="Search for..." style="width: 297px;">
+						  <span class="input-group-btn">
+							<button class="btn btn-secondary" type="submit" style="margin-top: 1px; height: 32px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -81px; width: 84px; border-bottom-width: 1px;">Search</button>
+						  </span>
+                                            </form>
+						</div>
 				</div>
 				
 				<li><a href="notification_page.html" style="padding-left: 39px;">Notification</a></li>
@@ -67,17 +68,18 @@
 					<ul class="dropdown-menu">
 						<li><a href="private_dis_page.html">Private Discussion</a></li>
 						<li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
-						<li><a href="public_discussion_page.html">Public Discussion</a></li>							
+						<li><a href="Controller?action=publiclist">Public Discussion</a></li>							
 					</ul>
 				</li>
 				
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
-						<li><a href="profile_page.html">User Profile</a></li>
-						<li><a href="change_password.html">Change Password</a></li>
-						<li><a href="signIn_Page.html">Logout</a></li>
-					</ul>
+						  <li><a href="Controller?action=userprofile">User Profile</a></li>
+                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+						
+                                                  <li><a href="Controller?action=logout">Logout</a></li>
+						</ul>
 				</li>
 					 
 				</ul>
@@ -106,14 +108,16 @@
 								
 						<table border="0" id="Comment" width="800">
                                                     <% 
-            List<Discussion> topic = (List<Discussion>) request.getAttribute("searchResult_discussion");
-            for(Discussion d : topic){
+                                                         String username=((User)request.getSession().getAttribute(GlobalConstants.LOGGED_IN_USER)).getUsername();
+                                        
+            List<PublicDiscussion> topic = (List<PublicDiscussion>) request.getAttribute("searchResult_discussion");
+            for(PublicDiscussion pb : topic){
           
            
         %>
 							<tr id="desc-1">
 								<td>
-									<a href="#"><% out.print(d.getTopic()); %></a>
+									<a href="Controller?action=publicdetailview&postid=<%out.println(pb.getid()+"&uname="+username);%>"><% out.print(pb.getTopic()); %></a>
 								</td>
 							</tr>
 							<% } %>  
