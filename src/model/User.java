@@ -34,7 +34,7 @@ public class User {
 
     private String[] publicPost;
     private String[] privatePost;
-    private Notification notification;
+    private Notifications notification;
 
     public ObjectId getId() {
         return id;
@@ -156,11 +156,11 @@ public class User {
         this.privatePost = privatePost;
     }
 
-    public Notification getNotification() {
+    public Notifications getNotification() {
         return notification;
     }
 
-    public void setNotification(Notification notification) {
+    public void setNotification(Notifications notification) {
         this.notification = notification;
     }
 
