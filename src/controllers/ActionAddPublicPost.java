@@ -37,10 +37,10 @@ public class ActionAddPublicPost implements Action{
         
         LinkedList<String> errors = new LinkedList<>();
         try {
-            if (topic== null || topic.equals("")) {
+            if (topic== null || topic.equals(" ") ||topic.length()<5 ||topic.length()>100) {
                 errors.add("Topic Should be Seleted");
             }
-            if (content== null || content.equals("")) {
+            if (content== null || content.equals("")||content.length()<15) {
                 errors.add("Content cannot be blank");
             }
             if (errors.size() > 0) {

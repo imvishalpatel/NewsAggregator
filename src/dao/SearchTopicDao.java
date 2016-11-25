@@ -33,9 +33,9 @@ public class SearchTopicDao {
       public ArrayList<PublicDiscussion> searchTopic(String searchvalue) {
        BasicDBList or = new BasicDBList();
        ArrayList<PublicDiscussion> arpb=new ArrayList<PublicDiscussion>();
-        BasicDBObject topic = new BasicDBObject("topic", java.util.regex.Pattern.compile(searchvalue));
-        BasicDBObject content = new BasicDBObject("content", java.util.regex.Pattern.compile(searchvalue));
-        BasicDBObject tags = new BasicDBObject("tags", java.util.regex.Pattern.compile(searchvalue));
+        BasicDBObject topic = new BasicDBObject("topic", new BasicDBObject("$regex",java.util.regex.Pattern.compile(searchvalue)).append("$options", "i"));
+        BasicDBObject content = new BasicDBObject("content", new BasicDBObject("$regex",java.util.regex.Pattern.compile(searchvalue)).append("$options", "i"));
+        BasicDBObject tags = new BasicDBObject("tags", new BasicDBObject("$regex",java.util.regex.Pattern.compile(searchvalue)).append("$options", "i"));
         or.add(topic);
         or.add(content);
         or.add(tags);

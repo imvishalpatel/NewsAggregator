@@ -57,7 +57,7 @@ public class NewsCrawler implements Runnable {
 
             URI uri = builder.build();
             HttpGet request = new HttpGet(uri);
-            request.setHeader("Ocp-Apim-Subscription-Key", "1754b06998b94cab860bfe80c1b4cef6");
+            request.setHeader("Ocp-Apim-Subscription-Key", "4b94a2e731de4afa84e82d2989c595e3");
             //System.out.println("URL :" + uri.toString());
 
             // Request body

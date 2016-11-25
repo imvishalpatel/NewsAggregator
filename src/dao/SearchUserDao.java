@@ -34,8 +34,8 @@ public class SearchUserDao {
     public List<User> searchUser(String searchvalue) {
         BasicDBList or = new BasicDBList();
 
-        BasicDBObject username = new BasicDBObject("username", java.util.regex.Pattern.compile(searchvalue));
-        BasicDBObject firstname = new BasicDBObject("firstname", java.util.regex.Pattern.compile(searchvalue));
+        BasicDBObject username = new BasicDBObject("username", new BasicDBObject("$regex",java.util.regex.Pattern.compile(searchvalue)).append("$options", "i"));
+        BasicDBObject firstname = new BasicDBObject("firstname", new BasicDBObject("$regex",java.util.regex.Pattern.compile(searchvalue)).append("$options", "i"));
         BasicDBObject lastname = new BasicDBObject("lastname", java.util.regex.Pattern.compile(searchvalue));
         or.add(username);
         or.add(firstname);
