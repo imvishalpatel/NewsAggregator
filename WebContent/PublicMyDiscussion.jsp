@@ -73,7 +73,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="private_dis_page.html">Private Discussion</a></li>
+						<li><a href="Controller?action=privatepost">Private Discussion</a></li>
 						<li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
 						<li><a href="Controller?action=publiclist">Public Discussion</a></li>							
 					</ul>
@@ -83,7 +83,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
 						     <li><a href="Controller?action=userprofile">User Profile</a></li>
-                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+                                            	<li><a href="ChangePassword.jsp">Change Password</a></li>
 						
                                                   <li><a href="Controller?action=logout">Logout</a></li>
 					</ul>

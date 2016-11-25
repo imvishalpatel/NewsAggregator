@@ -85,51 +85,34 @@
      
 <body>
 	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="#"><img src="assest/images/logo.png" width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
-					<div class="col-lg-6" style="margin-top: 10px;">
-					<div class="input-group">
-                                            <form action="Controller" method="post">
-                                                <input type="hidden" name="action" value="search"/>
-						  <input name="searchvalue" type="text" class="form-control" placeholder="Search for..." style="width: 297px;">
-						  <span class="input-group-btn">
-							<button class="btn btn-secondary" type="submit" style="margin-top: 1px; height: 32px; padding: 4px 19px; border-left-width: 0px; border-right-width: 0px; margin-left: -81px; width: 84px; border-bottom-width: 1px;">Search</button>
-						  </span>
-                                            </form>
-						</div>
-				</div>
-				
-				<li><a href="index.html" style="padding-left: 39px;">Notification</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="Controller?action=privatepost">Private Discussion</a></li>
-						<li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
-						<li><a href="Controller?action=publiclist">Public Discussion</a></li>							
-					</ul>
-				</li>
-				
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
-					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
-						     <li><a href="Controller?action=userprofile">User Profile</a></li>
-                                            	<li><a href="ChangePassword.jsp">Change Password</a></li>
-						
-                                                  <li><a href="Controller?action=logout">Logout</a></li>
-					</ul>
-				</li>
-				<!--<li class="active" style="margin-left: 29px;"><a class="btn" href="signin_Page.html">LOGOUT</a></li>-->
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div> 
+	  <div class="navbar navbar-inverse navbar-fixed-top headroom" >
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- Button for smallest screens -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <a class="navbar-brand" href="#"><img src="assest/images/logo.png"  width="150" style="margin-top: -17px;" alt="News Aggregator"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
+
+
+                        <li><a href="index.html" style="padding-left: 39px; margin-left:400px;">Notification</a></li>
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
+                            <ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
+                                <li><a href="Controller?action=userprofile">User Profile</a></li>
+                                <li><a href="ChangePassword.jsp">Change Password</a></li>
+
+                                <li><a href="Controller?action=logout">Logout</a></li>
+                            </ul>
+                        </li>
+                        <!--<li class="active" style="margin-left: 29px;"><a class="btn" href="signin_Page.html">LOGOUT</a></li>-->
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div> 
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary"></header>
@@ -155,21 +138,11 @@
 				<div class="tab-content">
 					<div id="new_post" class="tab-pane fade in active">
 					  <div class="col-md-12">
-                                              <%
-                                                  String topic=" "; 
-                                                          String username=((User)request.getSession().getAttribute(GlobalConstants.LOGGED_IN_USER)).getUsername();
-
-                                                  String content=" "; 
-                                                  if((String)request.getAttribute("topic")!=null)
-                                                  {topic= (String)request.getAttribute("topic");
-                                                          content= (String)request.getAttribute("content");}
-                                              %>
-					  	<form action="Controller?action=addpublicpost" method="post" style="margin-top: 2px;">
+					  	<form action="Controller?action=addprivatepost" method="post" style="margin-top: 2px;">
 							<h3>Topic : </h3>
-                                                        <input type="text" id="topic" name="topic" value="<%out.print(topic);%>"placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
-                                                        <input name="uname"type="hidden" value="<%=username%>"> 
-                                                        <h3>Content : </h3>
-							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Description" style="border-radius: 5px;"><%out.print(content);%></textarea>
+							<input type="text" id="topic" name="topic" placeholder="Enter the Topic" style="border-radius: 5px; width:550px; height:30px;">
+							<h3>Post : </h3>
+							<textarea id="content" name="content" cols="85" rows="6" placeholder="Enter the Post" style="border-radius: 5px;"></textarea>
 							<h3>Select Category : </h3>
 							<input type="checkbox" name="cb" value="Political"> Political <br/>
 							<input type="checkbox" name="cb" value="Education"> Education  <br/>
@@ -189,6 +162,7 @@
 			
 		</div>
 	</div>	<!-- /container -->
+	
 	
 	<footer id="footer" class="top-space">
 
@@ -249,8 +223,8 @@
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assest/js/headroom.min.js"></script>
-	<script src="assest/js/jQuery.headroom.min.js"></script>
-	<script src="assest/js/custom.js"></script>
+	<script src="js/headroom.min.js"></script>
+	<script src="js/jQuery.headroom.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 </html>

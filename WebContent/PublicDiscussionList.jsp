@@ -73,7 +73,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="private_dis_page.html">Private Discussion</a></li>
+                                <li><a href="Controller?action=privatepost">Private Discussion</a></li>
                                 <li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
                                 <li><a href="Controller?action=publiclist">Public Discussion</a></li>							
                             </ul>
@@ -83,7 +83,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
                             <ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
                                 <li><a href="Controller?action=userprofile">User Profile</a></li>
-                                <li><a href="Controller?action=resetpassword">Change Password</a></li>
+                                <li><a href="ChangePassword.jsp">Change Password</a></li>
 
                                 <li><a href="Controller?action=logout">Logout</a></li>
                             </ul>
@@ -116,13 +116,14 @@
                         <div class="col-xs-12">
                             <h3>News Feed</h3>
                         </div>
-                      
-                        <%
-                            try{
-                            List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
-                            if (newsList != null) {
 
-    //System.out.println(nm);
+                        <%
+                            try {
+                                if ((List<NewsModel>) request.getServletContext().getAttribute("newsList") != null) {
+                                    List<NewsModel> newsList = (List<NewsModel>) request.getServletContext().getAttribute("newsList");
+                                    if (newsList != null) {
+
+                                        //System.out.println(nm);
                         %>
                         <div class="row panel">
                             <div class="col-xs-10" >
@@ -135,8 +136,8 @@
                             </div>
                         </div>
                         <%}
-                            }
-                            catch (Exception e) {
+                                }
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage() + " news model mydiscussion page");
                             }
                         %>
@@ -156,18 +157,18 @@
                                 PublicDiscussion pb;
                                 ArrayList<String> tag = new ArrayList<String>();
                                 ArrayList<PublicDiscussion> arpb = (ArrayList<PublicDiscussion>) request.getAttribute("arpb");
-                                if(arpb!=null)
-                                {for (int i = 0; i < arpb.size(); i++) {
-                                    pb = arpb.get(i);
+                                if (arpb != null) {
+                                    for (int i = 0; i < arpb.size(); i++) {
+                                        pb = arpb.get(i);
                 //                if(pb.getUsertId().equals("bgoyal2222"))
-                                    //                {
+                                        //                {
 
                 //                 out.println( pb.getUsertId());
-                                    //                out.println(pb.getTopic());
-                                    //                 out.println("<td>Content:"+ pb.getContent()+"</td>");
-                                    //                  out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
-                                    //                out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
-                                    //                 
+                                        //                out.println(pb.getTopic());
+                                        //                 out.println("<td>Content:"+ pb.getContent()+"</td>");
+                                        //                  out.println("<td>Tags:"+ pb.getTagsString()+"</td>");
+                                        //                out.println("<td>Category:"+ pb.getCategoryString()+"</td>");
+                                        //                 
                         %>
 
                         <a href="Controller?action=publicdetailview&postid=<%out.println(pb.getid() + "&uname=" + username);%>" class="list-group-item">
@@ -196,8 +197,8 @@
                             </p>
                         </a>
                         <%
-                                    //   }
-                                }
+                                        //   }
+                                    }
                                 }
                             } catch (Exception e) {
                                 System.out.println(e.getMessage() + " my discussion page");

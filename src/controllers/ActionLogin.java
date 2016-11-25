@@ -66,6 +66,12 @@ public class ActionLogin implements Action {
                                 //Set session
                                 request.getSession().setAttribute(GlobalConstants.LOGGED_IN_USER, foundUser);
                                 request.getSession().setAttribute("userType", foundUser.getType());
+
+                                // check if admin or not
+                                if (foundUser.getType() == 'a' || foundUser.getType() == 'A') {
+                                        return "AdminSpam.jsp";
+                                }
+
                                 // once user successfully authenticate return it to home
                                 // for tmp i have redireted to public post page
                                 return "PublicDiscussionList.jsp";

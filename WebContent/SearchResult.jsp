@@ -76,7 +76,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"><b class="caret"></b></i></a>
 					<ul class="dropdown-menu" style="padding: 5px 1px; width: 151px;">
 						  <li><a href="Controller?action=userprofile">User Profile</a></li>
-                                            	<li><a href="Controller?action=resetpassword">Change Password</a></li>
+                                            	<li><a href="ChangePassword.jsp">Change Password</a></li>
 						
                                                   <li><a href="Controller?action=logout">Logout</a></li>
 						</ul>

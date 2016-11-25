@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import org.bson.types.ObjectId;
 
@@ -32,10 +33,11 @@ public class User {
     private char type;
     private String imgSource;
 
-    private String[] publicPost;
-    private String[] privatePost;
-    private Notifications notification;
+    private ArrayList<String> publicPost;
+    private ArrayList<String> privatePost;
+   private ArrayList<Notifications> notification;
 
+   
     public ObjectId getId() {
         return id;
     }
@@ -140,30 +142,37 @@ public class User {
         this.imgSource = imgSource;
     }
 
-    public String[] getPublicPost() {
+    public ArrayList<String> getPublicPost() {
         return publicPost;
     }
 
-    public void setPublicPost(String[] publicPost) {
-        this.publicPost = publicPost;
+    public void setPublicPostString(String publicPost) {
+        this.publicPost.add(publicPost);
     }
 
-    public String[] getPrivatePost() {
+    public void setPublicPost(ArrayList<String> publicPost) {
+        this.publicPost = publicPost;
+    }
+    public ArrayList<String> getPrivatePost() {
         return privatePost;
     }
 
-    public void setPrivatePost(String[] privatePost) {
+    public void setPrivatePost(ArrayList<String> privatePost) {
         this.privatePost = privatePost;
     }
 
-    public Notifications getNotification() {
+     public ArrayList<Notifications> getNotification() {
         return notification;
     }
 
-    public void setNotification(Notifications notification) {
-        this.notification = notification;
+    public void setNotification(ArrayList<Notifications> notification_obj) {
+        notification = notification_obj;
     }
 
+    public void notify(Notifications notification){
+       this. notification.add(notification);
+    }
+    
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", verified=" + verified + ", registerTime=" + registerTime + ", lastAcessTime=" + lastAcessTime + ", rating=" + rating + ", reportedSpamCount=" + reportedSpamCount + ", type=" + type + ", imgSource=" + imgSource + ", publicPost=" + publicPost + ", privatePost=" + privatePost + ", notification=" + notification + '}';

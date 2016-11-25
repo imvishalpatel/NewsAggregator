@@ -18,6 +18,7 @@ public final class GlobalConstants {
     public static final boolean FALSE = false;
     public static final String LOGGED_IN_USER = "LOGGED_IN_USER";
     public static final String MONGO_CLIENT = "MONGO_CLIENT";
+    public static final String REF_USER = "REF_USER";
 
     private GlobalConstants() {
     }

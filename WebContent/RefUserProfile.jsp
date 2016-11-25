@@ -16,7 +16,7 @@
         <meta name="description" content="">
 
 
-        <title>Profile Page</title>
+        <title>Ref User Profile Page</title>
 
         <link rel="shortcut icon" href="assest/images/favicon.png">
 
@@ -39,7 +39,8 @@
     </head>
 
     <body>
-        <!-- Fixed navbar -->
+         
+         <!-- Fixed navbar -->
         <div class="navbar navbar-inverse navbar-fixed-top headroom" >
             <div class="container">
                 <div class="navbar-header">
@@ -66,9 +67,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="Controller?action=privatepost">Private Discussion</a></li>
-                                <li><a href="#">Exclusive Discussion</a></li>
-                                <li><a href="Controller?action=publicpost">Public Discussion</a></li>							
+                                <li><a href="private_dis_page.html">Private Discussion</a></li>
+                                <li><a href="exclusive_dis_page.html">Exclusive Discussion</a></li>
+                                <li><a href="public_discussion_page.html">Public Discussion</a></li>							
                             </ul>
                         </li>
 
@@ -95,27 +96,16 @@
                 <article class="col-md-8 maincontent" style="width: 1168px; margin-top: 51px;">
 
                     <ul class="nav nav-tabs" style="font-size:18px ">
-                        <li class="active"><a data-toggle="tab" href="#">${sessionScope.LOGGED_IN_USER.firstName} ${sessionScope.LOGGED_IN_USER.lastName}</a></li>
+                        <li class="active"><a data-toggle="tab" href="#">${requestScope.REF_USER.firstName} ${requestScope.REF_USER.lastName}</a></li>
                     </ul>
                     <br/>
                     <div class="tab-content">
                         <div id="user_profile_1" class="tab-pane fade in active">
                             <div class="col-md-12">
                                 <!--check whether any success message-->
-                                <c:if test="${requestScope.userProfileSucc ne null}">
-                                    <c:forEach items="${userProfileSucc}" var="current">
-                                        <div class="alert alert-success fade in">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>!</strong>
-                                            <c:out value="${current}" />
-                                        </div>
-                                    </c:forEach>
-                                    <hr>
-                                </c:if>
-
                                 <!--check whether any error message-->
-                                <c:if test="${requestScope.userProfileErr ne null}">
-                                    <c:forEach items="${userProfileErr}" var="current">
+                                <c:if test="${requestScope.errors ne null}">
+                                    <c:forEach items="${errors}" var="current">
                                         <div class="alert alert-danger fade in">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                             <strong>Required!</strong>
@@ -134,7 +124,7 @@
                                                 First name : 
                                             </td>
                                             <td>
-                                                <input type="text" name="firstname"  value="${sessionScope.LOGGED_IN_USER.firstName}" id="fname_1" style="width:200px;">
+                                                <input type="text" name="firstname"  value="${requestScope.REF_USER.firstName}" id="fname_1" style="width:200px;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,7 +132,7 @@
                                                 Last name : 
                                             </td>
                                             <td>
-                                                <input type="text" name="lastname"  value="${sessionScope.LOGGED_IN_USER.lastName}" id="lname_1" style="width:200px;">
+                                                <input type="text" name="lastname"  value="${requestScope.REF_USER.lastName}" id="lname_1" style="width:200px;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -150,7 +140,7 @@
                                                 Username : 
                                             </td>
                                             <td>
-                                                <input type="text" name="username" value="${sessionScope.LOGGED_IN_USER.username}" style="width:200px;" id="uname_1"readonly>
+                                                <input type="text" name="username" value="${requestScope.REF_USER.username}" style="width:200px;" id="uname_1"readonly>
                                             </td>
                                         </tr>
                                         <tr>
@@ -158,11 +148,11 @@
                                                 Email
                                             </td>
                                             <td>
-                                                <input type="text" id="mail_id_1" name="email" value="${sessionScope.LOGGED_IN_USER.email}" style="width:200px;"readonly>
+                                                <input type="text" id="mail_id_1" name="email" value="${requestScope.REF_USER.email}" style="width:200px;"readonly>
                                             </td>
                                         </tr>
-                                       
-                                        <tr>
+
+<!--                                        <tr>
                                             <td>
                                                 Total Posts    : 
                                             </td>
@@ -193,13 +183,8 @@
                                             <td>
                                                 <input type="number" name="totalDownvoteDiscussion" id="total_downvote_1" style="width:200px; -moz-appearance:textfield;" readonly>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td><div style="margin-top: 50px; margin-left: -1px;">
-                                                    <button id="btn_save" type="submit" class="btn btn-primary btn-large">Save</button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        </tr>-->
+
                                     </table>
 
                                 </form>							
