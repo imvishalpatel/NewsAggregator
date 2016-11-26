@@ -51,7 +51,7 @@
                     <ul class="nav navbar-nav pull-right" style="margin-left: 0px; width: 667px;">
 
 
-                        <li><a href="index.html" style="padding-left: 39px; margin-left:400px;">Notification</a></li>
+                        <li><a href="#" style="padding-left: 39px; margin-left:400px;">Notification</a></li>
 
 
                         <li class="dropdown">

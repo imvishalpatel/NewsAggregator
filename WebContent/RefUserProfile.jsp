@@ -63,7 +63,7 @@
                             </div>
                         </div>
 
-                        <li><a href="index.html" style="padding-left: 39px;">Notification</a></li>
+                        <li><a href="#" style="padding-left: 39px;">Notification</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Discussion <b class="caret"></b></a>
                             <ul class="dropdown-menu">
